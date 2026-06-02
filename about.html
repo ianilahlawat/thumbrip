@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – ThumbRip | Free YouTube Thumbnail Downloader</title>
+  <meta name="description" content="Learn about ThumbRip — a free tool to download YouTube thumbnails in HD and 4K. Built for creators, designers and marketers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #FF3B30;
+      --red-soft: #FFF0EF;
+      --black: #0A0A0A;
+      --gray-50: #F8F8F8;
+      --gray-100: #F0F0F0;
+      --gray-200: #E0E0E0;
+      --gray-400: #9A9A9A;
+      --gray-600: #555555;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+    body { font-family: var(--font-body); background: var(--gray-50); color: var(--black); -webkit-font-smoothing: antialiased; }
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--black); text-decoration: none; }
+    .logo span { color: var(--red); }
+    nav a.back { font-size: 13px; color: var(--gray-400); text-decoration: none; }
+    nav a.back:hover { color: var(--black); }
+
+    .hero {
+      background: var(--black);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 48px); font-weight: 800; color: #fff; letter-spacing: -1px; margin-bottom: 12px; }
+    .hero h1 span { color: var(--red); }
+    .hero p { font-size: 16px; color: var(--gray-400); max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+    .container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    .mission { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+    .mission h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.3px; }
+    .mission p { font-size: 15px; color: var(--gray-600); line-height: 1.8; margin-bottom: 14px; }
+    .mission p:last-child { margin-bottom: 0; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px 20px; text-align: center; }
+    .stat-val { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--red); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--gray-600); line-height: 1.4; }
+
+    .features { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+    .features h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.3px; }
+    .feature-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--gray-100); }
+    .feature-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .feature-icon { width: 36px; height: 36px; background: var(--red-soft); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+    .feature-title { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 3px; }
+    .feature-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+    .who { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+    .who h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.3px; }
+    .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 16px; }
+    .audience-pill { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--black); display: flex; align-items: center; gap: 8px; }
+    .pill-dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; flex-shrink: 0; }
+
+    .contact { background: var(--black); border-radius: var(--radius); padding: 32px; text-align: center; margin-bottom: 24px; }
+    .contact h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .contact p { font-size: 14px; color: var(--gray-400); margin-bottom: 18px; line-height: 1.6; }
+    .contact a { display: inline-block; background: var(--red); color: #fff; padding: 12px 28px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; text-decoration: none; }
+    .contact a:hover { background: #CC2F26; }
+
+    footer { background: #0A0A0A; color: var(--gray-400); text-align: center; padding: 24px; font-size: 13px; }
+    footer .footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: #fff; display: block; margin-bottom: 6px; }
+    footer .footer-logo span { color: var(--red); }
+    footer a { color: var(--gray-400); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <a class="back" href="/">← Back to ThumbRip</a>
+</nav>
+
+<div class="hero">
+  <h1>About <span>ThumbRip</span></h1>
+  <p>A free, fast, and simple tool for downloading YouTube thumbnails — built for creators who care about quality.</p>
+</div>
+
+<div class="container">
+
+  <div class="mission">
+    <h2>What is ThumbRip?</h2>
+    <p>ThumbRip is a free online tool that lets anyone download YouTube video thumbnails instantly in all available sizes — from small previews up to full HD 1280×720 resolution. No account required, no watermarks, no limits.</p>
+    <p>We built ThumbRip because YouTube creators, designers, and marketers regularly need access to thumbnail images — whether to study what makes successful thumbnails work, create design mockups, use in presentations, or build their own content strategy. Getting these images used to be unnecessarily complicated. ThumbRip makes it a 10-second task.</p>
+    <p>ThumbRip works by reading the publicly available thumbnail URLs that YouTube itself hosts on its servers. We do not store, modify, or republish any YouTube content.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">5</div>
+      <div class="stat-label">thumbnail sizes available</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">HD</div>
+      <div class="stat-label">up to 1280×720 quality</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">0</div>
+      <div class="stat-label">signups or logins needed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">Free</div>
+      <div class="stat-label">always and forever</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <h2>What makes ThumbRip different</h2>
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div>
+        <div class="feature-title">Instant results</div>
+        <div class="feature-desc">Paste a YouTube URL and all thumbnail sizes appear in under a second. No waiting, no loading bars, no server processing delays.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📐</div>
+      <div>
+        <div class="feature-title">All 5 sizes at once</div>
+        <div class="feature-desc">We show you every available thumbnail resolution simultaneously — Max Resolution, SD, HQ, MQ, and Small — so you can pick the exact size you need.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔒</div>
+      <div>
+        <div class="feature-title">Privacy first</div>
+        <div class="feature-desc">We never store the URLs you enter or the images you download. Everything happens in your browser. Your data stays yours.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📱</div>
+      <div>
+        <div class="feature-title">Works on any device</div>
+        <div class="feature-desc">ThumbRip is fully responsive and works on mobile phones, tablets, and desktops. Download thumbnails directly to your phone with one tap.</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔗</div>
+      <div>
+        <div class="feature-title">All URL formats supported</div>
+        <div class="feature-desc">Works with youtube.com/watch links, youtu.be short links, and YouTube Shorts URLs. Just paste any YouTube link and it works.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="who">
+    <h2>Who uses ThumbRip?</h2>
+    <p style="font-size:15px;color:var(--gray-600);line-height:1.8;">ThumbRip is used daily by a wide range of people who work with YouTube content:</p>
+    <div class="audience-grid">
+      <div class="audience-pill"><span class="pill-dot"></span>YouTube creators</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Graphic designers</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Digital marketers</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Students & teachers</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Content strategists</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Social media managers</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Bloggers & writers</div>
+      <div class="audience-pill"><span class="pill-dot"></span>Researchers</div>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2>Get in touch</h2>
+    <p>Have feedback, a feature request, or found a bug? We'd love to hear from you. ThumbRip is constantly improving based on user feedback.</p>
+    <a href="mailto:hello@thumbrip.com">hello@thumbrip.com</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-logo">Thumb<span>Rip</span></span>
+  <p>© 2026 ThumbRip · <a href="/privacy-policy.html">Privacy Policy</a> · <a href="/about.html">About</a></p>
+</footer>
+
+</body>
+</html>
