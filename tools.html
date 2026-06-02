@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free YouTube Tools – Thumbnail Downloader, Tag Generator, Transcript & More | ThumbRip</title>
+  <meta name="description" content="Free YouTube tools for creators: thumbnail downloader, tag generator, transcript extractor, title generator, description generator, word counter and more. No signup required." />
+  <meta name="keywords" content="youtube tools, youtube tag generator, youtube transcript, youtube thumbnail downloader, youtube title generator, free youtube tools, youtube description generator" />
+  <meta property="og:title" content="Free YouTube Tools – ThumbRip" />
+  <meta property="og:description" content="All the free YouTube tools you need in one place. No signup, no watermark." />
+  <meta property="og:url" content="https://thumbrip.com/tools.html" />
+  <link rel="canonical" href="https://thumbrip.com/tools.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #FF3B30;
+      --red-dark: #CC2F26;
+      --red-soft: #FFF0EF;
+      --black: #0A0A0A;
+      --white: #FFFFFF;
+      --gray-50: #F8F8F8;
+      --gray-100: #F0F0F0;
+      --gray-200: #E0E0E0;
+      --gray-400: #9A9A9A;
+      --gray-600: #555555;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+    body { font-family: var(--font-body); background: var(--gray-50); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--black); text-decoration: none; letter-spacing: -0.5px; }
+    .logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { font-size: 13px; color: var(--gray-600); text-decoration: none; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); font-weight: 500; }
+
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--red-soft);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; line-height: 1.1; }
+    h1 span { color: var(--red); }
+    .hero-sub { font-size: 16px; color: var(--gray-600); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    main { max-width: 1000px; margin: 0 auto; padding: 44px 24px 80px; }
+
+    .category-label {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin: 40px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+    .category-label:first-child { margin-top: 0; }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+    .tool-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card:hover { transform: translateY(-2px); border-color: var(--gray-400); }
+    .tool-card.featured { border-color: var(--red); }
+    .tool-card.featured::before {
+      content: 'Our Tool';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .tool-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .icon-red { background: var(--red-soft); }
+    .icon-blue { background: #EBF3FF; }
+    .icon-green { background: #EDFAF2; }
+    .icon-amber { background: #FFF8ED; }
+    .icon-purple { background: #F3EEFF; }
+    .icon-teal { background: #EDFAF7; }
+
+    .tool-name { font-size: 15px; font-weight: 500; color: var(--black); }
+    .tool-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; flex: 1; }
+    .tool-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .tool-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .badge-free { background: #EDFAF2; color: #0D6E3A; }
+    .badge-popular { background: #FFF8ED; color: #A05C00; }
+    .badge-new { background: #EBF3FF; color: #1A56A0; }
+    .tool-arrow { font-size: 16px; color: var(--gray-400); }
+
+    .seo-section {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-top: 52px;
+    }
+    .seo-section h2 { font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.3px; }
+    .seo-section p { font-size: 15px; color: var(--gray-600); line-height: 1.8; margin-bottom: 14px; }
+    .seo-section p:last-child { margin-bottom: 0; }
+
+    footer {
+      background: var(--black);
+      color: var(--gray-400);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+    }
+    footer a { color: var(--gray-400); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    footer .footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 8px; display: block; }
+    footer .footer-logo span { color: var(--red); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-links">
+    <a href="/">Thumbnail</a>
+    <a href="/tools.html" class="active">All Tools</a>
+    <a href="/about.html">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Free YouTube Tools</div>
+  <h1>Every tool a <span>YouTube creator</span> needs</h1>
+  <p class="hero-sub">Free tools to download thumbnails, extract tags, generate titles, get transcripts and more. No account, no watermark, no limits.</p>
+</div>
+
+<main>
+
+  <div class="category-label">Thumbnail tools</div>
+  <div class="tools-grid">
+
+    <a class="tool-card featured" href="/index.html">
+      <div class="tool-icon icon-red">🖼️</div>
+      <div class="tool-name">YouTube Thumbnail Downloader</div>
+      <div class="tool-desc">Download any YouTube video thumbnail in all 5 sizes — up to HD 1280×720. Works with videos, Shorts and youtu.be links.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-popular">Most popular</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="category-label">Video info tools</div>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="/youtube-tag-extractor.html">
+      <div class="tool-icon icon-blue">🏷️</div>
+      <div class="tool-name">YouTube Tag Extractor</div>
+      <div class="tool-desc">See the hidden tags any YouTube video is using. Great for competitor research and optimizing your own video tags.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-popular">High demand</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-transcript.html">
+      <div class="tool-icon icon-green">📝</div>
+      <div class="tool-name">YouTube Transcript Extractor</div>
+      <div class="tool-desc">Extract the full text transcript from any YouTube video with captions. Download as TXT. Perfect for research, repurposing, and summaries.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-popular">Trending</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-video-stats.html">
+      <div class="tool-icon icon-amber">📊</div>
+      <div class="tool-name">YouTube Video Stats Viewer</div>
+      <div class="tool-desc">Get views, likes, duration, publish date and channel info for any YouTube video. Paste any URL and see the full stats instantly.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-free">Free</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-channel-stats.html">
+      <div class="tool-icon icon-red">📺</div>
+      <div class="tool-name">YouTube Channel Stats</div>
+      <div class="tool-desc">Check subscriber count, total views, video count and more for any YouTube channel. Great for competitor analysis.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-free">Free</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="category-label">Content creation tools</div>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="/youtube-title-generator.html">
+      <div class="tool-icon icon-purple">✏️</div>
+      <div class="tool-name">YouTube Title Generator</div>
+      <div class="tool-desc">Generate catchy, click-worthy YouTube video titles optimized for SEO. Enter your topic and get 10 title ideas instantly.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-new">New</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-description-generator.html">
+      <div class="tool-icon icon-teal">📄</div>
+      <div class="tool-name">YouTube Description Generator</div>
+      <div class="tool-desc">Create SEO-friendly YouTube video descriptions with the right keywords, timestamps format and call-to-actions automatically.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-new">New</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-hashtag-generator.html">
+      <div class="tool-icon icon-blue">#️⃣</div>
+      <div class="tool-name">YouTube Hashtag Generator</div>
+      <div class="tool-desc">Generate the best hashtags for your YouTube videos and Shorts. Get trending, relevant hashtags that boost discoverability.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-free">Free</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="category-label">Utility tools</div>
+  <div class="tools-grid">
+
+    <a class="tool-card" href="/youtube-playlist-duration.html">
+      <div class="tool-icon icon-amber">⏱️</div>
+      <div class="tool-name">YouTube Playlist Duration</div>
+      <div class="tool-desc">Calculate the total length of any YouTube playlist. Find out how long it will take to watch at 1x, 1.5x, and 2x speed.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-popular">Popular</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-embed-code.html">
+      <div class="tool-icon icon-green">🔗</div>
+      <div class="tool-name">YouTube Embed Code Generator</div>
+      <div class="tool-desc">Generate clean HTML embed code for any YouTube video. Customize size, autoplay, and controls. Copy and paste into your website.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-free">Free</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="tool-card" href="/youtube-channel-id.html">
+      <div class="tool-icon icon-purple">🔍</div>
+      <div class="tool-name">YouTube Channel ID Finder</div>
+      <div class="tool-desc">Find the Channel ID of any YouTube channel by pasting its URL. Useful for developers building YouTube API integrations.</div>
+      <div class="tool-meta">
+        <span class="tool-badge badge-free">Free</span>
+        <span class="tool-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="seo-section">
+    <h2>Free YouTube tools for every creator</h2>
+    <p>ThumbRip is a growing collection of free YouTube tools built for content creators, digital marketers, students, and anyone who works with YouTube videos. Every tool on this site is completely free to use, requires no account or signup, and works directly in your browser.</p>
+    <p>Our most popular tool — the <a href="/index.html" style="color:var(--red);">YouTube Thumbnail Downloader</a> — lets you download video thumbnails in all sizes including HD 1280×720. Creators use it to study what makes thumbnails successful, get design inspiration, and build their own high-CTR thumbnails.</p>
+    <p>Beyond thumbnails, ThumbRip offers tools for extracting video transcripts, finding hidden video tags, generating SEO-friendly titles and descriptions, and analyzing channel statistics. New tools are added regularly based on what creators actually need.</p>
+  </div>
+
+</main>
+
+<footer>
+  <span class="footer-logo">Thumb<span>Rip</span></span>
+  <p>Free YouTube Tools for Creators &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; <a href="/about.html">About</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:6px;font-size:12px;">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
+</footer>
+
+</body>
+</html>

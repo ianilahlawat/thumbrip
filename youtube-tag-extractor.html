@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Tag Extractor – See Any Video's Hidden Tags Free | ThumbRip</title>
+  <meta name="description" content="Extract hidden tags from any YouTube video for free. Paste a YouTube URL and instantly see all the tags the creator used. Great for SEO research and competitor analysis." />
+  <meta name="keywords" content="youtube tag extractor, youtube tags viewer, see youtube video tags, youtube tag generator, extract youtube tags free" />
+  <meta property="og:title" content="YouTube Tag Extractor – See Hidden Tags Free | ThumbRip" />
+  <meta property="og:description" content="See the hidden tags from any YouTube video. Free, instant, no signup." />
+  <meta property="og:url" content="https://thumbrip.com/youtube-tag-extractor.html" />
+  <link rel="canonical" href="https://thumbrip.com/youtube-tag-extractor.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #FF3B30; --red-dark: #CC2F26; --red-soft: #FFF0EF;
+      --black: #0A0A0A; --white: #FFFFFF;
+      --gray-50: #F8F8F8; --gray-100: #F0F0F0; --gray-200: #E0E0E0;
+      --gray-400: #9A9A9A; --gray-600: #555555;
+      --blue: #1A73E8; --blue-soft: #EBF3FF;
+      --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+      --radius: 14px; --radius-sm: 8px;
+    }
+    body { font-family: var(--font-body); background: var(--gray-50); color: var(--black); -webkit-font-smoothing: antialiased; }
+    nav { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--black); text-decoration: none; letter-spacing: -0.5px; }
+    .logo span { color: var(--red); }
+    .nav-right { display: flex; gap: 16px; align-items: center; }
+    .nav-right a { font-size: 13px; color: var(--gray-600); text-decoration: none; }
+    .nav-right a:hover { color: var(--black); }
+
+    .hero { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 52px 24px 44px; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 500; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; line-height: 1.1; }
+    h1 span { color: var(--red); }
+    .hero-sub { font-size: 16px; color: var(--gray-600); max-width: 520px; margin: 0 auto 34px; line-height: 1.7; }
+
+    .search-wrap { max-width: 660px; margin: 0 auto; }
+    .search-box { display: flex; background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
+    .search-box:focus-within { border-color: var(--blue); }
+    .search-box input { flex: 1; border: none; outline: none; padding: 16px 20px; font-size: 15px; font-family: var(--font-body); color: var(--black); background: transparent; }
+    .search-box input::placeholder { color: var(--gray-400); }
+    .search-box button { background: var(--blue); color: var(--white); border: none; padding: 0 28px; font-size: 15px; font-weight: 500; font-family: var(--font-body); cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    .search-box button:hover { background: #1557C0; }
+    .search-hint { font-size: 12px; color: var(--gray-400); margin-top: 10px; text-align: center; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 36px 24px 80px; }
+
+    .error-msg { background: #FFF0EF; border: 1px solid #FFCCC9; color: #CC2F26; padding: 14px 18px; border-radius: var(--radius-sm); font-size: 14px; margin-bottom: 24px; display: none; }
+    .error-msg.show { display: block; }
+
+    .loading { text-align: center; padding: 60px 0; display: none; }
+    .loading.show { display: block; }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--gray-200); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .results { display: none; }
+    .results.show { display: block; }
+
+    .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+    .result-card h2 { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .result-meta { font-size: 13px; color: var(--gray-400); margin-bottom: 20px; }
+
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--blue-soft);
+      color: #1A56A0;
+      border: 1px solid #C5D9F5;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .tag-pill:hover { background: #D6E8FF; }
+    .tag-pill.copied { background: #EDFAF2; color: #0D6E3A; border-color: #A8E6C0; }
+
+    .tag-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+    .action-btn { background: var(--black); color: var(--white); border: none; padding: 10px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; font-family: var(--font-body); cursor: pointer; transition: background 0.15s; }
+    .action-btn:hover { background: #333; }
+    .action-btn.outline { background: transparent; color: var(--black); border: 1px solid var(--gray-200); }
+    .action-btn.outline:hover { background: var(--gray-100); }
+
+    .count-badge { background: var(--red-soft); color: var(--red); font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 20px; margin-left: 8px; }
+
+    .empty-state { text-align: center; padding: 40px; color: var(--gray-400); font-size: 14px; }
+
+    .how-section { margin-top: 52px; }
+    .section-title { font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .step-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 22px; }
+    .step-num { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 10px; }
+    .step-title { font-weight: 500; font-size: 14px; margin-bottom: 6px; }
+    .step-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+    .seo-block { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 28px; margin-top: 40px; }
+    .seo-block h2 { font-family: var(--font-display); font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+    .seo-block p { font-size: 14px; color: var(--gray-600); line-height: 1.8; margin-bottom: 12px; }
+    .seo-block p:last-child { margin-bottom: 0; }
+
+    .faq-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
+    .faq-q { padding: 15px 18px; font-weight: 500; font-size: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+    .faq-q::after { content: '+'; font-size: 20px; color: var(--gray-400); transition: transform 0.2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { font-size: 14px; color: var(--gray-600); line-height: 1.7; padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.2s; }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 18px 14px; }
+
+    footer { background: var(--black); color: var(--gray-400); text-align: center; padding: 28px 24px; font-size: 13px; }
+    footer a { color: var(--gray-400); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+    footer .footer-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 8px; display: block; }
+    footer .footer-logo span { color: var(--red); }
+
+    @media(max-width:600px) { .search-box button { padding: 0 16px; font-size: 13px; } }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "YouTube Tag Extractor",
+    "url": "https://thumbrip.com/youtube-tag-extractor.html",
+    "description": "Extract hidden tags from any YouTube video for free. See exactly which tags any creator is using.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-right">
+    <a href="/tools.html">All Tools</a>
+    <a href="/">Thumbnail Downloader</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">YouTube Tag Extractor</div>
+  <h1>See Any Video's <span>Hidden Tags</span> Instantly</h1>
+  <p class="hero-sub">Paste any YouTube URL and instantly see all the tags that video is using. Free, instant, no signup required.</p>
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="urlInput" placeholder="Paste YouTube video URL here..." autocomplete="off" spellcheck="false" />
+      <button onclick="extractTags()">Extract Tags</button>
+    </div>
+    <p class="search-hint">Works with any public YouTube video URL</p>
+  </div>
+</div>
+
+<main>
+  <div class="error-msg" id="errorMsg"></div>
+  <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:14px;">Fetching tags...</p></div>
+
+  <div class="results" id="results">
+    <div class="result-card">
+      <h2 id="videoTitle">Video Tags <span class="count-badge" id="tagCount">0 tags</span></h2>
+      <div class="result-meta" id="videoMeta">Click each tag to copy it</div>
+      <div class="tags-wrap" id="tagsWrap"></div>
+      <div class="tag-actions">
+        <button class="action-btn" onclick="copyAllTags()">Copy all tags</button>
+        <button class="action-btn outline" onclick="downloadTags()">Download as TXT</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-section">
+    <div class="section-title">How to extract YouTube tags</div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Copy the video URL</div><div class="step-desc">Go to any YouTube video and copy the URL from your browser address bar.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Paste and extract</div><div class="step-desc">Paste the URL in the box above and click "Extract Tags". Results appear instantly.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Copy or download</div><div class="step-desc">Click any tag to copy it, or use "Copy all tags" to grab them all at once.</div></div>
+    </div>
+  </div>
+
+  <div class="seo-block">
+    <h2>Why use a YouTube Tag Extractor?</h2>
+    <p>YouTube tags are keywords that video creators add to their videos to help YouTube understand the content and recommend it to the right audience. While tags are hidden from regular viewers, they play a role in how YouTube categorizes and surfaces content — especially for suggested videos.</p>
+    <p>By extracting tags from successful videos in your niche, you can understand which keywords top creators are targeting, find tag ideas for your own videos, and reverse-engineer what's working for competitors. This is one of the most used tactics by growing YouTube channels.</p>
+    <p>ThumbRip's YouTube Tag Extractor is completely free, requires no account, and shows you every tag a video is using in seconds. Use it alongside our <a href="/index.html" style="color:var(--red);">YouTube Thumbnail Downloader</a> for full competitor research.</p>
+  </div>
+
+  <div style="margin-top:32px;">
+    <div class="section-title" style="font-size:20px;">Frequently asked questions</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are YouTube tags still important in 2026?</div><div class="faq-a">Tags are less important than they used to be — YouTube now relies more on titles, thumbnails, and transcripts for ranking. However, tags still help YouTube understand your video's topic, especially for longer-tail keyword variations and misspellings.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Why do some videos show no tags?</div><div class="faq-a">Many creators don't add tags to their videos, especially smaller creators or those who don't focus on SEO. YouTube's algorithm has become good enough that tags are optional. If a video shows no tags, the creator simply didn't add any.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I use these tags on my own videos?</div><div class="faq-a">You can use the tags as inspiration and research, but avoid copying tags that are not relevant to your own video. YouTube's algorithm can detect irrelevant tags and it may hurt your video's performance. Always use tags that genuinely describe your content.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How many tags should I use on my YouTube video?</div><div class="faq-a">Most SEO experts recommend using 8 to 15 relevant tags per video. Focus on a mix of broad tags (your main topic), specific tags (long-tail keywords), and branded tags (your channel name). Avoid stuffing irrelevant tags.</div></div>
+  </div>
+</main>
+
+<footer>
+  <span class="footer-logo">Thumb<span>Rip</span></span>
+  <p><a href="/">Thumbnail Downloader</a> &nbsp;·&nbsp; <a href="/tools.html">All Tools</a> &nbsp;·&nbsp; <a href="/about.html">About</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:6px;font-size:12px;">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
+</footer>
+
+<script>
+  let currentTags = [];
+
+  function extractVideoId(url) {
+    url = url.trim();
+    const patterns = [
+      /(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+      /^([a-zA-Z0-9_-]{11})$/
+    ];
+    for (const p of patterns) {
+      const m = url.match(p);
+      if (m) return m[1];
+    }
+    return null;
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+  function hideError() { document.getElementById('errorMsg').classList.remove('show'); }
+
+  async function extractTags() {
+    hideError();
+    const input = document.getElementById('urlInput').value.trim();
+    if (!input) { showError('Please paste a YouTube URL first.'); return; }
+    const videoId = extractVideoId(input);
+    if (!videoId) { showError('Could not find a valid YouTube video ID. Please paste a full YouTube URL.'); return; }
+
+    document.getElementById('loading').classList.add('show');
+    document.getElementById('results').classList.remove('show');
+
+    try {
+      const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+      const data = await res.json();
+      const title = data.title || 'YouTube Video';
+
+      const pageRes = await fetch(`https://www.youtube.com/watch?v=${videoId}`);
+      const html = await pageRes.text();
+
+      const tagMatch = html.match(/"keywords"\s*:\s*(\[[^\]]+\])/);
+      let tags = [];
+      if (tagMatch) {
+        try { tags = JSON.parse(tagMatch[1]); } catch(e) { tags = []; }
+      }
+
+      currentTags = tags;
+      renderResults(title, videoId, tags);
+    } catch(e) {
+      document.getElementById('loading').classList.remove('show');
+      showError('Could not fetch tags. YouTube may be blocking the request. Try a different video or try again in a moment.');
+    }
+  }
+
+  function renderResults(title, videoId, tags) {
+    document.getElementById('loading').classList.remove('show');
+    document.getElementById('videoTitle').childNodes[0].textContent = title + ' ';
+    document.getElementById('tagCount').textContent = tags.length + ' tag' + (tags.length !== 1 ? 's' : '');
+    document.getElementById('videoMeta').textContent = `Video ID: ${videoId} · Click any tag to copy`;
+
+    const wrap = document.getElementById('tagsWrap');
+    wrap.innerHTML = '';
+
+    if (tags.length === 0) {
+      wrap.innerHTML = '<div class="empty-state">No tags found for this video. The creator may not have added any tags.</div>';
+    } else {
+      tags.forEach(tag => {
+        const pill = document.createElement('span');
+        pill.className = 'tag-pill';
+        pill.textContent = tag;
+        pill.onclick = () => {
+          navigator.clipboard.writeText(tag).then(() => {
+            pill.classList.add('copied');
+            pill.textContent = '✓ ' + tag;
+            setTimeout(() => { pill.classList.remove('copied'); pill.textContent = tag; }, 1500);
+          });
+        };
+        wrap.appendChild(pill);
+      });
+    }
+
+    document.getElementById('results').classList.add('show');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyAllTags() {
+    if (!currentTags.length) return;
+    navigator.clipboard.writeText(currentTags.join(', ')).then(() => {
+      const btn = document.querySelector('.action-btn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.textContent = 'Copy all tags'; }, 2000);
+    });
+  }
+
+  function downloadTags() {
+    if (!currentTags.length) return;
+    const blob = new Blob([currentTags.join('\n')], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'youtube-tags.txt';
+    a.click();
+  }
+
+  document.getElementById('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') extractTags(); });
+  function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+</script>
+
+</body>
+</html>
