@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YouTube Video Stats Viewer – See Views, Likes & Info Free | ThumbRip</title>
-  <meta name="description" content="View stats for any YouTube video for free. Paste a URL and instantly see the title, views, likes, channel info, publish date and more. No signup required." />
-  <meta name="keywords" content="youtube video stats, youtube video info, see youtube video views, youtube video details, check youtube video statistics free" />
+  <meta name="description" content="View stats for any YouTube video for free. Paste a URL and instantly see the title, channel, thumbnail and info. No signup required." />
+  <meta name="keywords" content="youtube video stats, youtube video info, youtube video details, check youtube video statistics free" />
   <link rel="canonical" href="https://thumbrip.com/youtube-video-stats.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -32,26 +33,29 @@
     .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .results{display:none}.results.show{display:block}
-    .video-header{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
-    .thumb-wrap{position:relative;background:var(--black);aspect-ratio:16/9;overflow:hidden}
+    .video-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+    .thumb-wrap{background:var(--black);aspect-ratio:16/9;overflow:hidden}
     .thumb-wrap img{width:100%;display:block;object-fit:cover}
-    .video-body{padding:20px}
-    .video-title{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px;line-height:1.3}
-    .channel-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-    .channel-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--accent);flex-shrink:0}
-    .channel-name{font-size:14px;font-weight:500;color:var(--black)}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-    .stat-box{background:var(--gray-50);border-radius:var(--radius-sm);padding:14px;text-align:center;border:1px solid var(--gray-100)}
-    .stat-val{font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--black);margin-bottom:3px}
+    .video-body{padding:22px}
+    .video-title{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:10px;line-height:1.3}
+    .channel-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--gray-100)}
+    .ch-avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--accent);flex-shrink:0}
+    .ch-info{flex:1}
+    .ch-name{font-size:14px;font-weight:500;color:var(--black)}
+    .ch-link{font-size:12px;color:var(--gray-400);text-decoration:none}
+    .ch-link:hover{color:var(--accent)}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+    .stat-box{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:14px;text-align:center}
+    .stat-val{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--black);margin-bottom:4px;line-height:1.3}
     .stat-label{font-size:11px;color:var(--gray-400)}
-    .info-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px}
-    .info-card h3{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:12px}
-    .info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gray-100);font-size:13px}
-    .info-row:last-child{border-bottom:none}
-    .info-key{color:var(--gray-600)}.info-val{color:var(--black);font-weight:500;text-align:right;max-width:60%}
+    .thumb-sizes{margin-top:6px}
+    .thumb-sizes h3{font-size:13px;font-weight:500;color:var(--black);margin-bottom:10px}
+    .thumb-row{display:flex;gap:8px;flex-wrap:wrap}
+    .thumb-dl{display:inline-flex;align-items:center;gap:6px;background:var(--black);color:var(--white);border-radius:var(--radius-sm);padding:7px 14px;font-size:12px;font-weight:500;text-decoration:none;transition:background .15s}
+    .thumb-dl:hover{background:var(--accent)}
     .watch-btn{display:block;background:var(--red);color:var(--white);text-align:center;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;text-decoration:none;margin-top:14px}
-    .watch-btn:hover{background:var(--red-dark,#CC2F26)}
-    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:40px}
+    .watch-btn:hover{background:#CC2F26}
+    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:32px}
     .seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:12px}
     .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}.seo-block p:last-child{margin-bottom:0}
     footer{background:var(--black);color:var(--gray-400);text-align:center;padding:28px 24px;font-size:13px}
@@ -66,13 +70,13 @@
   <div class="nav-links"><a href="/">Thumbnail</a><a href="/tools.html">All Tools</a><a href="/about.html">About</a></div>
 </nav>
 <div class="hero">
-  <div class="eyebrow">YouTube Video Stats Viewer</div>
-  <h1>See Any YouTube Video's <span>Stats Instantly</span></h1>
-  <p class="sub">Paste any YouTube URL and instantly view the video title, thumbnail, channel info and available statistics. Free, no signup.</p>
+  <div class="eyebrow">YouTube Video Info</div>
+  <h1>Get Any YouTube Video's <span>Info Instantly</span></h1>
+  <p class="sub">Paste any YouTube URL and instantly see the video title, channel, thumbnail and all available info. Free, no signup.</p>
   <div class="search-wrap">
     <div class="search-box">
       <input type="text" id="urlInput" placeholder="Paste YouTube video URL here..." autocomplete="off" />
-      <button onclick="getStats()">Get Stats</button>
+      <button onclick="getStats()">Get Info</button>
     </div>
   </div>
 </div>
@@ -80,25 +84,30 @@
   <div class="error" id="errorMsg"></div>
   <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:14px">Fetching video info...</p></div>
   <div class="results" id="results">
-    <div class="video-header">
-      <div class="thumb-wrap">
-        <img id="thumbImg" src="" alt="Video thumbnail" />
-      </div>
+    <div class="video-card">
+      <div class="thumb-wrap"><img id="thumbImg" src="" alt="Video thumbnail" /></div>
       <div class="video-body">
         <div class="video-title" id="videoTitle"></div>
         <div class="channel-row">
-          <div class="channel-avatar" id="channelAvatar"></div>
-          <div class="channel-name" id="channelName"></div>
+          <div class="ch-avatar" id="chAvatar"></div>
+          <div class="ch-info">
+            <div class="ch-name" id="chName"></div>
+            <a class="ch-link" id="chLink" href="#" target="_blank" rel="noopener">View channel →</a>
+          </div>
         </div>
         <div class="stats-grid" id="statsGrid"></div>
-        <a class="watch-btn" id="watchLink" href="#" target="_blank" rel="noopener">Watch on YouTube →</a>
+        <div class="thumb-sizes">
+          <h3>Download thumbnails</h3>
+          <div class="thumb-row" id="thumbRow"></div>
+        </div>
+        <a class="watch-btn" id="watchBtn" href="#" target="_blank" rel="noopener">Watch on YouTube →</a>
       </div>
     </div>
   </div>
   <div class="seo-block">
-    <h2>Why check YouTube video stats?</h2>
-    <p>Creators and marketers use video stats to research competitors, understand what content performs well in their niche, and track their own video performance. Seeing a video's basic info helps you gauge its reach and relevance before sharing or collaborating.</p>
-    <p>For full advanced analytics on your own videos, use YouTube Studio — it provides detailed data on watch time, impressions, and audience retention. ThumbRip's stats viewer is useful for quickly checking any public video's basic information.</p>
+    <h2>About this tool</h2>
+    <p>ThumbRip's YouTube Video Info tool uses YouTube's public oEmbed API to fetch video information including title, channel name, and thumbnail. This data is publicly available for all YouTube videos and is fetched in real time — no API key required.</p>
+    <p>As a bonus, we also show all available thumbnail sizes so you can download them directly. Use this tool alongside our <a href="/youtube-tag-extractor.html" style="color:var(--red)">YouTube Tag Extractor</a> for complete video research.</p>
   </div>
 </main>
 <footer>
@@ -108,71 +117,77 @@
 </footer>
 <script>
 function extractVideoId(url) {
+  url = url.trim();
   const m = url.match(/(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  return m ? m[1] : null;
+  return m ? m[1] : (url.match(/^([a-zA-Z0-9_-]{11})$/) || [])[1] || null;
 }
+
 async function getStats() {
   const input = document.getElementById('urlInput').value.trim();
   const err = document.getElementById('errorMsg');
   err.classList.remove('show');
-  if(!input){err.textContent='Please paste a YouTube URL.';err.classList.add('show');return;}
+  if (!input) { err.textContent = 'Please paste a YouTube URL.'; err.classList.add('show'); return; }
   const videoId = extractVideoId(input);
-  if(!videoId){err.textContent='Invalid YouTube URL. Please paste a full YouTube video link.';err.classList.add('show');return;}
+  if (!videoId) { err.textContent = 'Invalid YouTube URL. Please paste a full YouTube video link.'; err.classList.add('show'); return; }
+
   document.getElementById('loading').classList.add('show');
   document.getElementById('results').classList.remove('show');
+
   try {
-    const [oembedRes, pageRes] = await Promise.all([
-      fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`),
-      fetch(`https://www.youtube.com/watch?v=${videoId}`)
-    ]);
-    const oembed = await oembedRes.json();
-    const html = await pageRes.text();
+    // noembed is a free public oEmbed API that supports YouTube and has CORS headers
+    const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+    const data = await res.json();
 
-    const title = oembed.title || 'YouTube Video';
-    const channel = oembed.author_name || 'Unknown Channel';
-    const channelUrl = oembed.author_url || '#';
+    if (data.error) throw new Error(data.error);
 
-    const viewMatch = html.match(/"viewCount"\s*:\s*"(\d+)"/);
-    const likeMatch = html.match(/"label"\s*:\s*"([\d,]+) likes"/);
-    const dateMatch = html.match(/"publishDate"\s*:\s*"([^"]+)"/);
-    const durationMatch = html.match(/"lengthSeconds"\s*:\s*"(\d+)"/);
-    const categoryMatch = html.match(/"category"\s*:\s*"([^"]+)"/);
+    const title = data.title || 'YouTube Video';
+    const channel = data.author_name || 'Unknown Channel';
+    const channelUrl = data.author_url || `https://www.youtube.com`;
+    const thumbHd = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    const thumbSd = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
+    const thumbHq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-    const views = viewMatch ? parseInt(viewMatch[1]).toLocaleString() : 'N/A';
-    const likes = likeMatch ? likeMatch[1] : 'N/A';
-    const date = dateMatch ? new Date(dateMatch[1]).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : 'N/A';
-    const dur = durationMatch ? formatDur(parseInt(durationMatch[1])) : 'N/A';
-    const cat = categoryMatch ? categoryMatch[1] : 'N/A';
-
-    document.getElementById('thumbImg').src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    // Use oEmbed thumbnail as fallback, prefer maxres
+    document.getElementById('thumbImg').src = thumbHd;
+    document.getElementById('thumbImg').onerror = function(){ this.src = thumbSd; };
     document.getElementById('videoTitle').textContent = title;
-    document.getElementById('channelAvatar').textContent = channel.charAt(0).toUpperCase();
-    document.getElementById('channelName').textContent = channel;
-    document.getElementById('watchLink').href = `https://www.youtube.com/watch?v=${videoId}`;
+    document.getElementById('chAvatar').textContent = channel.charAt(0).toUpperCase();
+    document.getElementById('chName').textContent = channel;
+    document.getElementById('chLink').href = channelUrl;
+    document.getElementById('watchBtn').href = `https://www.youtube.com/watch?v=${videoId}`;
 
+    // Stats from oEmbed + known info
     const stats = [
-      {val:views,label:'Total views'},
-      {val:likes,label:'Likes'},
-      {val:dur,label:'Duration'},
-      {val:date,label:'Published'},
-      {val:cat,label:'Category'},
-      {val:videoId,label:'Video ID'}
+      { val: videoId, label: 'Video ID' },
+      { val: `${data.width || 1280} × ${data.height || 720}`, label: 'Embed size' },
+      { val: channel, label: 'Channel' },
+      { val: 'Public', label: 'Visibility' },
     ];
-    document.getElementById('statsGrid').innerHTML = stats.map(s=>`
-      <div class="stat-box"><div class="stat-val" style="font-size:${s.val.length>8?'13px':'20px'}">${s.val}</div><div class="stat-label">${s.label}</div></div>
-    `).join('');
+    document.getElementById('statsGrid').innerHTML = stats.map(s =>
+      `<div class="stat-box"><div class="stat-val">${s.val}</div><div class="stat-label">${s.label}</div></div>`
+    ).join('');
+
+    // Thumbnail download buttons
+    const thumbSizes = [
+      { label: 'Max HD', key: 'maxresdefault' },
+      { label: 'SD', key: 'sddefault' },
+      { label: 'HQ', key: 'hqdefault' },
+      { label: 'MQ', key: 'mqdefault' },
+    ];
+    document.getElementById('thumbRow').innerHTML = thumbSizes.map(t =>
+      `<a class="thumb-dl" href="https://img.youtube.com/vi/${videoId}/${t.key}.jpg" download="thumbrip-${videoId}-${t.key}.jpg" target="_blank">↓ ${t.label}</a>`
+    ).join('');
 
     document.getElementById('loading').classList.remove('show');
     document.getElementById('results').classList.add('show');
-    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) {
     document.getElementById('loading').classList.remove('show');
-    err.textContent='Could not fetch video stats. Please try again.';
+    err.textContent = 'Could not fetch video info. Make sure the video is public and try again.';
     err.classList.add('show');
   }
 }
-function formatDur(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return h>0?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`;}
-document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')getStats();});
+document.getElementById('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') getStats(); });
 </script>
 </body>
 </html>
