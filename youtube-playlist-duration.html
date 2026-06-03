@@ -3,65 +3,69 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YouTube Playlist Duration Calculator – Total Length Free | ThumbRip</title>
-  <meta name="description" content="Calculate the total length of any YouTube playlist for free. Find out how long it takes to watch at 1x, 1.25x, 1.5x and 2x speed. No signup required." />
+  <meta name="description" content="Calculate the total length of any YouTube playlist for free. Find out how long it takes to watch at 1x, 1.5x and 2x speed. Free YouTube playlist duration tool." />
   <meta name="keywords" content="youtube playlist duration, youtube playlist length calculator, how long is youtube playlist, total playlist time youtube" />
   <link rel="canonical" href="https://thumbrip.com/youtube-playlist-duration.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--red:#FF3B30;--red-soft:#FFF0EF;--black:#0A0A0A;--white:#fff;--gray-50:#F8F8F8;--gray-100:#F0F0F0;--gray-200:#E0E0E0;--gray-400:#9A9A9A;--gray-600:#555;--accent:#7C3AED;--accent-soft:#F3EEFF;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--radius:14px;--radius-sm:8px}
+    :root{--red:#FF3B30;--red-soft:#FFF0EF;--black:#0A0A0A;--white:#fff;--gray-50:#F8F8F8;--gray-100:#F0F0F0;--gray-200:#E0E0E0;--gray-400:#9A9A9A;--gray-600:#555;--accent:#7C3AED;--accent-soft:#F5F3FF;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--radius:14px;--radius-sm:8px}
     body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);-webkit-font-smoothing:antialiased}
     nav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
     .logo{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--black);text-decoration:none;letter-spacing:-.5px}.logo span{color:var(--red)}
     .nav-links{display:flex;gap:20px}.nav-links a{font-size:13px;color:var(--gray-600);text-decoration:none}.nav-links a:hover{color:var(--black)}
     .hero{background:var(--white);border-bottom:1px solid var(--gray-200);padding:52px 24px 44px;text-align:center}
     .eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:18px}
-    h1{font-family:var(--font-display);font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;line-height:1.1}
-    h1 span{color:var(--red)}
-    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 34px;line-height:1.7}
-    .search-wrap{max-width:660px;margin:0 auto}
-    .search-box{display:flex;background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
-    .search-box:focus-within{border-color:var(--accent)}
-    .search-box input{flex:1;border:none;outline:none;padding:16px 20px;font-size:15px;font-family:var(--font-body);color:var(--black);background:transparent}
+    h1{font-family:var(--font-display);font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;line-height:1.1}h1 span{color:var(--red)}
+    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto;line-height:1.7}
+    main{max-width:760px;margin:0 auto;padding:36px 24px 80px}
+    .api-setup{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+    .api-setup h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:6px}
+    .api-setup p{font-size:13px;color:var(--gray-600);margin-bottom:12px;line-height:1.6}
+    .api-row{display:flex;gap:8px}
+    .api-input{flex:1;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;font-family:var(--font-body);color:var(--black);outline:none;transition:border-color .2s}
+    .api-input:focus{border-color:var(--accent)}
+    .api-input::placeholder{color:var(--gray-400)}
+    .save-btn{background:var(--accent);color:var(--white);border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--font-body)}
+    .save-btn:hover{background:#6D28D9}
+    .api-note{font-size:11px;color:var(--gray-400);margin-top:8px;line-height:1.5}
+    .api-note a{color:var(--accent);text-decoration:none}
+    .api-saved{display:none;background:#EAF3DE;border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;color:#3B6D11;margin-top:8px}
+    .api-saved.show{display:block}
+    .tool-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+    .tool-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px}
+    .search-box{display:flex;gap:8px;margin-bottom:8px}
+    .search-box input{flex:1;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px 16px;font-size:14px;font-family:var(--font-body);color:var(--black);outline:none;transition:border-color .2s}
+    .search-box input:focus{border-color:var(--accent)}
     .search-box input::placeholder{color:var(--gray-400)}
-    .search-box button{background:var(--accent);color:var(--white);border:none;padding:0 24px;font-size:15px;font-weight:500;font-family:var(--font-body);cursor:pointer;white-space:nowrap}
+    .search-box button{background:var(--accent);color:var(--white);border:none;padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--font-body)}
     .search-box button:hover{background:#6D28D9}
-    .hint{font-size:12px;color:var(--gray-400);margin-top:10px;text-align:center}
-    main{max-width:860px;margin:0 auto;padding:36px 24px 80px}
-    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:14px 18px;border-radius:var(--radius-sm);font-size:14px;margin-bottom:24px;display:none}
-    .error.show{display:block}
-    .loading{text-align:center;padding:60px 0;display:none}.loading.show{display:block}
-    .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+    .hint{font-size:12px;color:var(--gray-400);margin-bottom:12px}
+    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;display:none;margin-top:10px}.error.show{display:block}
+    .loading{text-align:center;padding:30px 0;display:none}.loading.show{display:block}
+    .spinner{width:36px;height:36px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .results{display:none}.results.show{display:block}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}
-    .stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;text-align:center}
-    .stat-card.featured{border-color:var(--accent)}
-    .stat-val{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--black);margin-bottom:4px;line-height:1}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+    .stat-box{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:16px;text-align:center}
+    .stat-box.featured{border-color:var(--accent)}
+    .stat-val{font-family:var(--font-display);font-size:22px;font-weight:800;margin-bottom:4px}
     .stat-val.accent{color:var(--accent)}
-    .stat-label{font-size:12px;color:var(--gray-400)}
-    .speed-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px;margin-bottom:20px}
-    .speed-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px}
-    .speed-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gray-100)}
-    .speed-row:last-child{border-bottom:none}
-    .speed-label{font-size:14px;color:var(--gray-600);display:flex;align-items:center;gap:8px}
-    .speed-badge{background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px}
-    .speed-time{font-size:15px;font-weight:500;color:var(--black)}
-    .progress-bar{width:100%;height:6px;background:var(--gray-100);border-radius:3px;margin-top:6px;overflow:hidden}
-    .progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
-    .section-title{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:16px}
-    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-    .step-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px}
-    .step-num{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--accent);line-height:1;margin-bottom:10px}
-    .step-t{font-weight:500;font-size:14px;margin-bottom:5px}.step-d{font-size:13px;color:var(--gray-600);line-height:1.6}
-    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:40px}
-    .seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:12px}
-    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}.seo-block p:last-child{margin-bottom:0}
+    .stat-label{font-size:11px;color:var(--gray-400)}
+    .speed-table{width:100%;border-collapse:collapse}
+    .speed-table tr{border-bottom:1px solid var(--gray-100)}
+    .speed-table tr:last-child{border-bottom:none}
+    .speed-table td{padding:9px 0;font-size:14px}
+    .speed-table td:last-child{font-weight:500;text-align:right}
+    .speed-badge{background:var(--accent-soft);color:var(--accent);font-size:10px;padding:2px 7px;border-radius:20px;margin-left:6px}
+    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-top:8px}
+    .seo-block h2{font-family:var(--font-display);font-size:18px;font-weight:800;margin-bottom:10px}
+    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:10px}.seo-block p:last-child{margin-bottom:0}
     footer{background:var(--black);color:var(--gray-400);text-align:center;padding:28px 24px;font-size:13px}
     footer a{color:var(--gray-400);text-decoration:none}footer a:hover{color:var(--white)}
     .footer-logo{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--white);display:block;margin-bottom:8px}.footer-logo span{color:var(--red)}
-    @media(max-width:600px){.search-box button{padding:0 12px;font-size:13px}.nav-links{display:none}}
+    @media(max-width:600px){.nav-links{display:none}.search-box{flex-direction:column}.api-row{flex-direction:column}}
   </style>
 </head>
 <body>
@@ -72,47 +76,48 @@
 <div class="hero">
   <div class="eyebrow">Playlist Duration Calculator</div>
   <h1>How Long Is That <span>YouTube Playlist?</span></h1>
-  <p class="sub">Paste any YouTube playlist URL and instantly calculate the total watch time at every playback speed.</p>
-  <div class="search-wrap">
-    <div class="search-box">
-      <input type="text" id="urlInput" placeholder="Paste YouTube playlist URL here..." autocomplete="off" spellcheck="false" />
-      <button onclick="calcDuration()">Calculate</button>
-    </div>
-    <p class="hint">Paste a playlist URL like: youtube.com/playlist?list=PLxxxxxx</p>
-  </div>
+  <p class="sub">Calculate total playlist watch time at every playback speed. Requires a free YouTube API key (takes 2 minutes to get).</p>
 </div>
 <main>
-  <div class="error" id="errorMsg"></div>
-  <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:14px">Calculating duration...</p></div>
-  <div class="results" id="results">
-    <div class="stats-grid">
-      <div class="stat-card featured"><div class="stat-val accent" id="totalTime">0h 0m</div><div class="stat-label">Total duration at 1x</div></div>
-      <div class="stat-card"><div class="stat-val" id="videoCount">0</div><div class="stat-label">Videos in playlist</div></div>
-      <div class="stat-card"><div class="stat-val" id="avgTime">0m</div><div class="stat-label">Average video length</div></div>
+  <div class="api-setup">
+    <h3>🔑 Step 1 — Enter your free YouTube API key</h3>
+    <p>This tool uses YouTube's official API to fetch video durations. Get your free key at <a href="https://console.cloud.google.com" target="_blank" rel="noopener" style="color:var(--accent)">console.cloud.google.com</a> → Enable "YouTube Data API v3" → Create API key. It's completely free (10,000 requests/day).</p>
+    <div class="api-row">
+      <input class="api-input" type="text" id="apiKeyInput" placeholder="Paste your YouTube Data API v3 key here..." />
+      <button class="save-btn" onclick="saveApiKey()">Save Key</button>
     </div>
-    <div class="speed-card">
-      <h3>Watch time at different speeds</h3>
-      <div class="speed-row"><span class="speed-label">1x speed <span class="speed-badge">Normal</span></span><span class="speed-time" id="speed1x">—</span></div>
-      <div class="speed-row"><span class="speed-label">1.25x speed</span><span class="speed-time" id="speed125x">—</span></div>
-      <div class="speed-row"><span class="speed-label">1.5x speed <span class="speed-badge">Popular</span></span><span class="speed-time" id="speed15x">—</span></div>
-      <div class="speed-row"><span class="speed-label">1.75x speed</span><span class="speed-time" id="speed175x">—</span></div>
-      <div class="speed-row"><span class="speed-label">2x speed</span><span class="speed-time" id="speed2x">—</span></div>
-    </div>
+    <div class="api-note">Your key is saved only in your browser (localStorage). We never send it to our servers. <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener">How to get a free API key →</a></div>
+    <div class="api-saved" id="apiSaved">✓ API key saved! You can now use the calculator below.</div>
   </div>
 
-  <div style="margin-top:48px">
-    <div class="section-title">How it works</div>
-    <div class="steps-grid">
-      <div class="step-card"><div class="step-num">01</div><div class="step-t">Copy playlist URL</div><div class="step-d">Open any YouTube playlist and copy the URL from your browser address bar.</div></div>
-      <div class="step-card"><div class="step-num">02</div><div class="step-t">Paste and calculate</div><div class="step-d">Paste the URL above and click Calculate. Results appear instantly.</div></div>
-      <div class="step-card"><div class="step-num">03</div><div class="step-t">Plan your watch time</div><div class="step-d">See total duration at 1x, 1.5x, and 2x speed so you can plan your study sessions.</div></div>
+  <div class="tool-card">
+    <h3>📋 Step 2 — Calculate playlist duration</h3>
+    <div class="search-box">
+      <input type="text" id="playlistUrl" placeholder="Paste YouTube playlist URL here..." />
+      <button onclick="calcDuration()">Calculate</button>
+    </div>
+    <p class="hint">e.g. youtube.com/playlist?list=PLxxxxxx</p>
+    <div class="error" id="errorMsg"></div>
+    <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:13px">Calculating...</p></div>
+    <div class="results" id="results">
+      <div class="stats-grid">
+        <div class="stat-box featured"><div class="stat-val accent" id="totalTime">—</div><div class="stat-label">Total at 1x speed</div></div>
+        <div class="stat-box"><div class="stat-val" id="videoCount">—</div><div class="stat-label">Videos</div></div>
+        <div class="stat-box"><div class="stat-val" id="avgTime">—</div><div class="stat-label">Avg per video</div></div>
+      </div>
+      <table class="speed-table">
+        <tr><td>1x speed <span class="speed-badge">Normal</span></td><td id="s1x">—</td></tr>
+        <tr><td>1.25x speed</td><td id="s125">—</td></tr>
+        <tr><td>1.5x speed <span class="speed-badge">Popular</span></td><td id="s15">—</td></tr>
+        <tr><td>1.75x speed</td><td id="s175">—</td></tr>
+        <tr><td>2x speed</td><td id="s2">—</td></tr>
+      </table>
     </div>
   </div>
 
   <div class="seo-block">
     <h2>Why calculate YouTube playlist duration?</h2>
-    <p>Students use this tool to plan study schedules before watching lecture playlists. Professionals use it to estimate how long a course will take. Binge-watchers use it to decide if a playlist fits their evening. It's one of the most practically useful YouTube tools for anyone who watches video content seriously.</p>
-    <p>ThumbRip's playlist duration calculator shows you the total length at 5 different playback speeds, so you can see exactly how much time you save by watching at 1.5x or 2x speed.</p>
+    <p>Students use this to plan study sessions before watching lecture series. Professionals estimate course completion time. The speed-adjusted times help you choose the right playback speed to fit your schedule.</p>
   </div>
 </main>
 <footer>
@@ -121,57 +126,100 @@
   <p style="margin-top:6px;font-size:12px">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
 </footer>
 <script>
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key) return;
+  localStorage.setItem('yt_api_key', key);
+  document.getElementById('apiSaved').classList.add('show');
+}
+
+function getApiKey() {
+  return localStorage.getItem('yt_api_key') || document.getElementById('apiKeyInput').value.trim();
+}
+
 function extractPlaylistId(url) {
   const m = url.match(/[?&]list=([a-zA-Z0-9_-]+)/);
   return m ? m[1] : null;
 }
-function formatDuration(secs) {
-  const h = Math.floor(secs/3600), m = Math.floor((secs%3600)/60), s = Math.floor(secs%60);
-  if(h>0) return `${h}h ${m}m`;
-  return `${m}m ${s}s`;
+
+function formatDur(s) {
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = Math.floor(s % 60);
+  if (h > 0) return `${h}h ${m}m`;
+  return `${m}m ${sec}s`;
 }
+
 function parseDuration(iso) {
   const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-  if(!m) return 0;
-  return (parseInt(m[1]||0)*3600)+(parseInt(m[2]||0)*60)+parseInt(m[3]||0);
+  if (!m) return 0;
+  return (parseInt(m[1] || 0) * 3600) + (parseInt(m[2] || 0) * 60) + parseInt(m[3] || 0);
 }
+
 async function calcDuration() {
-  const input = document.getElementById('urlInput').value.trim();
+  const url = document.getElementById('playlistUrl').value.trim();
+  const apiKey = getApiKey();
   const err = document.getElementById('errorMsg');
   err.classList.remove('show');
-  const playlistId = extractPlaylistId(input);
-  if(!input){err.textContent='Please paste a YouTube playlist URL.';err.classList.add('show');return;}
-  if(!playlistId){err.textContent='Could not find a playlist ID. Make sure you paste a playlist URL (it should contain "list=" in the URL).';err.classList.add('show');return;}
+
+  if (!apiKey) { err.textContent = 'Please enter your YouTube API key in Step 1 first.'; err.classList.add('show'); return; }
+  const playlistId = extractPlaylistId(url);
+  if (!playlistId) { err.textContent = 'Invalid playlist URL. Make sure it contains "list=" in the URL.'; err.classList.add('show'); return; }
+
   document.getElementById('loading').classList.add('show');
   document.getElementById('results').classList.remove('show');
+
   try {
-    // Use a CORS proxy to fetch playlist page for duration data
-    const res = await fetch(`https://www.youtube.com/playlist?list=${playlistId}`);
-    const html = await res.text();
-    const durations = [];
-    const matches = html.matchAll(/"lengthSeconds":"(\d+)"/g);
-    for(const m of matches) durations.push(parseInt(m[1]));
-    if(!durations.length) throw new Error('No videos found');
-    const total = durations.reduce((a,b)=>a+b,0);
-    const avg = Math.round(total/durations.length);
-    document.getElementById('totalTime').textContent = formatDuration(total);
-    document.getElementById('videoCount').textContent = durations.length;
-    document.getElementById('avgTime').textContent = formatDuration(avg);
-    document.getElementById('speed1x').textContent = formatDuration(total);
-    document.getElementById('speed125x').textContent = formatDuration(Math.round(total/1.25));
-    document.getElementById('speed15x').textContent = formatDuration(Math.round(total/1.5));
-    document.getElementById('speed175x').textContent = formatDuration(Math.round(total/1.75));
-    document.getElementById('speed2x').textContent = formatDuration(Math.round(total/2));
+    let videoIds = [];
+    let pageToken = '';
+    // Fetch all video IDs from playlist (handles pagination)
+    do {
+      const r = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&pageToken=${pageToken}&key=${apiKey}`);
+      const d = await r.json();
+      if (d.error) throw new Error(d.error.message);
+      videoIds.push(...d.items.map(i => i.contentDetails.videoId));
+      pageToken = d.nextPageToken || '';
+    } while (pageToken);
+
+    if (!videoIds.length) throw new Error('No videos found in this playlist.');
+
+    // Fetch durations in batches of 50
+    let totalSeconds = 0;
+    for (let i = 0; i < videoIds.length; i += 50) {
+      const batch = videoIds.slice(i, i + 50).join(',');
+      const r = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${batch}&key=${apiKey}`);
+      const d = await r.json();
+      if (d.error) throw new Error(d.error.message);
+      d.items.forEach(v => { totalSeconds += parseDuration(v.contentDetails.duration); });
+    }
+
+    const avg = Math.round(totalSeconds / videoIds.length);
+    document.getElementById('totalTime').textContent = formatDur(totalSeconds);
+    document.getElementById('videoCount').textContent = videoIds.length;
+    document.getElementById('avgTime').textContent = formatDur(avg);
+    document.getElementById('s1x').textContent = formatDur(totalSeconds);
+    document.getElementById('s125').textContent = formatDur(Math.round(totalSeconds / 1.25));
+    document.getElementById('s15').textContent = formatDur(Math.round(totalSeconds / 1.5));
+    document.getElementById('s175').textContent = formatDur(Math.round(totalSeconds / 1.75));
+    document.getElementById('s2').textContent = formatDur(Math.round(totalSeconds / 2));
+
     document.getElementById('loading').classList.remove('show');
     document.getElementById('results').classList.add('show');
-    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
   } catch(e) {
     document.getElementById('loading').classList.remove('show');
-    err.textContent='Could not fetch playlist data. Make sure the playlist is public and the URL is correct.';
+    err.textContent = `Error: ${e.message}. Check your API key and make sure the playlist is public.`;
     err.classList.add('show');
   }
 }
-document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')calcDuration();});
+
+// Load saved key on page load
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('yt_api_key');
+  if (saved) {
+    document.getElementById('apiKeyInput').value = saved;
+    document.getElementById('apiSaved').classList.add('show');
+  }
+});
+
+document.getElementById('playlistUrl').addEventListener('keydown', e => { if (e.key === 'Enter') calcDuration(); });
 </script>
 </body>
 </html>
