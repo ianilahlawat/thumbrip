@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Embed Code Generator – Free HTML Embed Tool | ThumbRip</title>
+  <meta name="description" content="Generate clean HTML embed code for any YouTube video. Customize size, autoplay, controls and more. Copy and paste into your website instantly. Free, no signup." />
+  <meta name="keywords" content="youtube embed code generator, youtube embed html, embed youtube video website, youtube iframe code, youtube embed generator free" />
+  <link rel="canonical" href="https://thumbrip.com/youtube-embed-code.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--red:#FF3B30;--red-soft:#FFF0EF;--black:#0A0A0A;--white:#fff;--gray-50:#F8F8F8;--gray-100:#F0F0F0;--gray-200:#E0E0E0;--gray-400:#9A9A9A;--gray-600:#555;--accent:#0891B2;--accent-soft:#ECFEFF;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--radius:14px;--radius-sm:8px}
+    body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);-webkit-font-smoothing:antialiased}
+    nav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .logo{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--black);text-decoration:none;letter-spacing:-.5px}.logo span{color:var(--red)}
+    .nav-links{display:flex;gap:20px}.nav-links a{font-size:13px;color:var(--gray-600);text-decoration:none}.nav-links a:hover{color:var(--black)}
+    .hero{background:var(--white);border-bottom:1px solid var(--gray-200);padding:52px 24px 44px;text-align:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+    h1{font-family:var(--font-display);font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;line-height:1.1}h1 span{color:var(--red)}
+    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 34px;line-height:1.7}
+    .search-wrap{max-width:660px;margin:0 auto}
+    .search-box{display:flex;background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+    .search-box:focus-within{border-color:var(--accent)}
+    .search-box input{flex:1;border:none;outline:none;padding:16px 20px;font-size:15px;font-family:var(--font-body);color:var(--black);background:transparent}
+    .search-box input::placeholder{color:var(--gray-400)}
+    .search-box button{background:var(--accent);color:var(--white);border:none;padding:0 24px;font-size:15px;font-weight:500;font-family:var(--font-body);cursor:pointer;white-space:nowrap}
+    .search-box button:hover{background:#0E7490}
+    main{max-width:900px;margin:0 auto;padding:36px 24px 80px}
+    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:14px 18px;border-radius:var(--radius-sm);font-size:14px;margin-bottom:24px;display:none}.error.show{display:block}
+    .builder{display:none}.builder.show{display:block}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media(max-width:700px){.two-col{grid-template-columns:1fr}}
+    .options-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px}
+    .options-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:16px}
+    .opt-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gray-100)}
+    .opt-row:last-child{border-bottom:none}
+    .opt-label{font-size:13px;color:var(--black)}
+    .opt-sub{font-size:11px;color:var(--gray-400);margin-top:2px}
+    select,input[type=number]{border:1px solid var(--gray-200);border-radius:6px;padding:5px 8px;font-size:13px;font-family:var(--font-body);background:var(--white);color:var(--black)}
+    input[type=checkbox]{width:16px;height:16px;cursor:pointer}
+    .preview-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px}
+    .preview-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px}
+    .preview-wrap{background:var(--black);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:14px;aspect-ratio:16/9}
+    .preview-wrap iframe{width:100%;height:100%;border:none;display:block}
+    .code-area{background:#0A0A0A;border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;position:relative}
+    .code-text{font-family:monospace;font-size:12px;color:#9FE1CB;word-break:break-all;white-space:pre-wrap;line-height:1.7}
+    .copy-btn{background:var(--accent);color:var(--white);border:none;padding:10px 22px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer;width:100%}
+    .copy-btn:hover{background:#0E7490}
+    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:40px}
+    .seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:12px}
+    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}.seo-block p:last-child{margin-bottom:0}
+    footer{background:var(--black);color:var(--gray-400);text-align:center;padding:28px 24px;font-size:13px}
+    footer a{color:var(--gray-400);text-decoration:none}footer a:hover{color:var(--white)}
+    .footer-logo{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--white);display:block;margin-bottom:8px}.footer-logo span{color:var(--red)}
+    @media(max-width:600px){.search-box button{padding:0 12px;font-size:13px}.nav-links{display:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-links"><a href="/">Thumbnail</a><a href="/tools.html">All Tools</a><a href="/about.html">About</a></div>
+</nav>
+<div class="hero">
+  <div class="eyebrow">YouTube Embed Code Generator</div>
+  <h1>Generate YouTube <span>Embed Code</span> Instantly</h1>
+  <p class="sub">Paste a YouTube URL, customize size and options, then copy the HTML embed code straight into your website.</p>
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="urlInput" placeholder="Paste YouTube video URL here..." autocomplete="off" />
+      <button onclick="generateEmbed()">Generate Code</button>
+    </div>
+  </div>
+</div>
+<main>
+  <div class="error" id="errorMsg"></div>
+  <div class="builder" id="builder">
+    <div class="two-col">
+      <div class="options-card">
+        <h3>Customize embed</h3>
+        <div class="opt-row">
+          <div><div class="opt-label">Width</div><div class="opt-sub">pixels</div></div>
+          <input type="number" id="width" value="560" min="200" max="1920" style="width:80px" oninput="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Height</div><div class="opt-sub">pixels</div></div>
+          <input type="number" id="height" value="315" min="100" max="1080" style="width:80px" oninput="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Preset size</div></div>
+          <select id="preset" onchange="applyPreset()">
+            <option value="560x315">560×315 (Default)</option>
+            <option value="640x360">640×360</option>
+            <option value="800x450">800×450</option>
+            <option value="1280x720">1280×720 (HD)</option>
+            <option value="100%x auto">Responsive (100%)</option>
+          </select>
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Autoplay</div><div class="opt-sub">Start playing automatically</div></div>
+          <input type="checkbox" id="autoplay" onchange="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Show controls</div><div class="opt-sub">Display playback controls</div></div>
+          <input type="checkbox" id="controls" checked onchange="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Loop video</div><div class="opt-sub">Repeat when finished</div></div>
+          <input type="checkbox" id="loop" onchange="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Mute</div><div class="opt-sub">Start muted (required for autoplay)</div></div>
+          <input type="checkbox" id="mute" onchange="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Privacy mode</div><div class="opt-sub">Don't track viewers</div></div>
+          <input type="checkbox" id="privacy" checked onchange="updateCode()" />
+        </div>
+        <div class="opt-row">
+          <div><div class="opt-label">Start time</div><div class="opt-sub">seconds (0 = beginning)</div></div>
+          <input type="number" id="startTime" value="0" min="0" style="width:70px" oninput="updateCode()" />
+        </div>
+      </div>
+      <div class="preview-card">
+        <h3>Live preview</h3>
+        <div class="preview-wrap"><iframe id="previewFrame" allowfullscreen></iframe></div>
+        <div class="code-area"><div class="code-text" id="codeText"></div></div>
+        <button class="copy-btn" onclick="copyCode()">Copy embed code</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="seo-block">
+    <h2>How to embed a YouTube video on your website</h2>
+    <p>Embedding a YouTube video in your website is simple — you just need the right HTML iframe code. ThumbRip's embed code generator creates the code automatically with all the options you need: custom size, autoplay, loop, mute, start time, and privacy-enhanced mode.</p>
+    <p>Privacy-enhanced mode (youtube-nocookie.com) is recommended — it means YouTube won't set tracking cookies on your visitors unless they click play. This is important for GDPR compliance if you have visitors from Europe.</p>
+    <p>Just paste the video URL, customize your options, copy the code and paste it into your website's HTML where you want the video to appear.</p>
+  </div>
+</main>
+<footer>
+  <span class="footer-logo">Thumb<span>Rip</span></span>
+  <p><a href="/">Thumbnail</a> &nbsp;·&nbsp; <a href="/tools.html">All Tools</a> &nbsp;·&nbsp; <a href="/about.html">About</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:6px;font-size:12px">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
+</footer>
+<script>
+let currentVideoId = '';
+function extractVideoId(url) {
+  const m = url.match(/(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+function generateEmbed() {
+  const input = document.getElementById('urlInput').value.trim();
+  const err = document.getElementById('errorMsg');
+  err.classList.remove('show');
+  if(!input){err.textContent='Please paste a YouTube URL.';err.classList.add('show');return;}
+  const videoId = extractVideoId(input);
+  if(!videoId){err.textContent='Invalid YouTube URL.';err.classList.add('show');return;}
+  currentVideoId = videoId;
+  document.getElementById('builder').classList.add('show');
+  updateCode();
+  document.getElementById('builder').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function applyPreset() {
+  const v = document.getElementById('preset').value;
+  if(v==='100%x auto'){document.getElementById('width').value=560;document.getElementById('height').value=315;}
+  else{const[w,h]=v.split('x');document.getElementById('width').value=w;document.getElementById('height').value=h;}
+  updateCode();
+}
+function updateCode() {
+  if(!currentVideoId) return;
+  const w = document.getElementById('width').value||560;
+  const h = document.getElementById('height').value||315;
+  const autoplay = document.getElementById('autoplay').checked?1:0;
+  const controls = document.getElementById('controls').checked?1:0;
+  const loop = document.getElementById('loop').checked?1:0;
+  const mute = document.getElementById('mute').checked?1:0;
+  const privacy = document.getElementById('privacy').checked;
+  const start = parseInt(document.getElementById('startTime').value)||0;
+  const domain = privacy?'www.youtube-nocookie.com':'www.youtube.com';
+  let params = `?autoplay=${autoplay}&controls=${controls}&mute=${mute}`;
+  if(loop) params+=`&loop=1&playlist=${currentVideoId}`;
+  if(start>0) params+=`&start=${start}`;
+  const src = `https://${domain}/embed/${currentVideoId}${params}`;
+  const code = `<iframe width="${w}" height="${h}" src="${src}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+  document.getElementById('codeText').textContent = code;
+  document.getElementById('previewFrame').src = src;
+}
+function copyCode() {
+  const code = document.getElementById('codeText').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent='✓ Copied!';
+    setTimeout(()=>btn.textContent='Copy embed code',2000);
+  });
+}
+document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')generateEmbed();});
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Channel ID Finder – Get Any Channel ID Free | ThumbRip</title>
+  <meta name="description" content="Find the Channel ID of any YouTube channel instantly. Paste a channel URL and get the exact Channel ID you need for YouTube API integrations. Free, no signup." />
+  <meta name="keywords" content="youtube channel id finder, find youtube channel id, get youtube channel id, youtube channel id from url, youtube api channel id" />
+  <link rel="canonical" href="https://thumbrip.com/youtube-channel-id.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--red:#FF3B30;--red-soft:#FFF0EF;--black:#0A0A0A;--white:#fff;--gray-50:#F8F8F8;--gray-100:#F0F0F0;--gray-200:#E0E0E0;--gray-400:#9A9A9A;--gray-600:#555;--accent:#DC6803;--accent-soft:#FFFAEB;--font-display:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;--radius:14px;--radius-sm:8px}
+    body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);-webkit-font-smoothing:antialiased}
+    nav{background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .logo{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--black);text-decoration:none;letter-spacing:-.5px}.logo span{color:var(--red)}
+    .nav-links{display:flex;gap:20px}.nav-links a{font-size:13px;color:var(--gray-600);text-decoration:none}.nav-links a:hover{color:var(--black)}
+    .hero{background:var(--white);border-bottom:1px solid var(--gray-200);padding:52px 24px 44px;text-align:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:18px}
+    h1{font-family:var(--font-display);font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;line-height:1.1}h1 span{color:var(--red)}
+    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 34px;line-height:1.7}
+    .search-wrap{max-width:660px;margin:0 auto}
+    .search-box{display:flex;background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+    .search-box:focus-within{border-color:var(--accent)}
+    .search-box input{flex:1;border:none;outline:none;padding:16px 20px;font-size:15px;font-family:var(--font-body);color:var(--black);background:transparent}
+    .search-box input::placeholder{color:var(--gray-400)}
+    .search-box button{background:var(--accent);color:var(--white);border:none;padding:0 24px;font-size:15px;font-weight:500;font-family:var(--font-body);cursor:pointer;white-space:nowrap}
+    .search-box button:hover{background:#B45309}
+    .hint{font-size:12px;color:var(--gray-400);margin-top:10px;text-align:center}
+    main{max-width:760px;margin:0 auto;padding:36px 24px 80px}
+    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:14px 18px;border-radius:var(--radius-sm);font-size:14px;margin-bottom:24px;display:none}.error.show{display:block}
+    .loading{text-align:center;padding:60px 0;display:none}.loading.show{display:block}
+    .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .results{display:none}.results.show{display:block}
+    .result-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-bottom:20px}
+    .result-label{font-size:12px;color:var(--gray-400);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+    .result-val{font-family:monospace;font-size:20px;font-weight:700;color:var(--black);background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:12px;word-break:break-all;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .copy-pill{background:var(--black);color:var(--white);border:none;padding:7px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0}
+    .copy-pill:hover{background:#333}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .info-item{background:var(--gray-50);border-radius:var(--radius-sm);padding:12px 14px}
+    .info-label{font-size:11px;color:var(--gray-400);margin-bottom:4px}
+    .info-val{font-size:14px;font-weight:500;color:var(--black)}
+    .url-formats{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:22px;margin-top:20px}
+    .url-formats h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px}
+    .url-row{padding:8px 0;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:10px}
+    .url-row:last-child{border-bottom:none}
+    .url-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;flex-shrink:0}
+    .badge-green{background:#EDFAF2;color:#0D6E3A}.badge-blue{background:#EBF3FF;color:#1A56A0}
+    .url-text{font-family:monospace;font-size:12px;color:var(--gray-600)}
+    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:40px}
+    .seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:12px}
+    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}.seo-block p:last-child{margin-bottom:0}
+    footer{background:var(--black);color:var(--gray-400);text-align:center;padding:28px 24px;font-size:13px}
+    footer a{color:var(--gray-400);text-decoration:none}footer a:hover{color:var(--white)}
+    .footer-logo{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--white);display:block;margin-bottom:8px}.footer-logo span{color:var(--red)}
+    @media(max-width:600px){.search-box button{padding:0 12px;font-size:13px}.nav-links{display:none}.info-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-links"><a href="/">Thumbnail</a><a href="/tools.html">All Tools</a><a href="/about.html">About</a></div>
+</nav>
+<div class="hero">
+  <div class="eyebrow">YouTube Channel ID Finder</div>
+  <h1>Find Any YouTube <span>Channel ID</span> Instantly</h1>
+  <p class="sub">Paste a YouTube channel URL and instantly get the exact Channel ID. Works with all channel URL formats including @handles.</p>
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="urlInput" placeholder="Paste YouTube channel URL e.g. youtube.com/@channelname" autocomplete="off" />
+      <button onclick="findChannelId()">Find Channel ID</button>
+    </div>
+    <p class="hint">Works with @handle, /channel/, /c/, and /user/ URL formats</p>
+  </div>
+</div>
+<main>
+  <div class="error" id="errorMsg"></div>
+  <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:14px">Fetching channel ID...</p></div>
+  <div class="results" id="results">
+    <div class="result-card">
+      <div class="result-label">Channel ID</div>
+      <div class="result-val"><span id="channelId">—</span><button class="copy-pill" onclick="copyId()">Copy</button></div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">Channel name</div><div class="info-val" id="channelName">—</div></div>
+        <div class="info-item"><div class="info-label">Channel URL</div><div class="info-val" id="channelUrl" style="font-size:12px;word-break:break-all">—</div></div>
+      </div>
+    </div>
+    <div class="url-formats">
+      <h3>All URL formats for this channel</h3>
+      <div class="url-row"><span class="url-badge badge-green">Standard</span><span class="url-text" id="urlById">—</span></div>
+      <div class="url-row"><span class="url-badge badge-blue">Handle</span><span class="url-text" id="urlByHandle">—</span></div>
+      <div class="url-row"><span class="url-badge badge-green">API</span><span class="url-text" id="urlApi">—</span></div>
+    </div>
+  </div>
+
+  <div class="seo-block">
+    <h2>What is a YouTube Channel ID?</h2>
+    <p>A YouTube Channel ID is a unique identifier for every YouTube channel, starting with "UC" followed by 22 characters (e.g. UCxxxxxxxxxxxxxxxxxxxxxx). It never changes even if the channel changes its name or handle.</p>
+    <p>Developers need Channel IDs to use the YouTube Data API for fetching channel stats, videos, and playlists. Content creators need them for certain integrations, analytics tools, and membership setups. This tool extracts the ID from any channel URL format instantly.</p>
+  </div>
+</main>
+<footer>
+  <span class="footer-logo">Thumb<span>Rip</span></span>
+  <p><a href="/">Thumbnail</a> &nbsp;·&nbsp; <a href="/tools.html">All Tools</a> &nbsp;·&nbsp; <a href="/about.html">About</a> &nbsp;·&nbsp; <a href="/privacy-policy.html">Privacy Policy</a></p>
+  <p style="margin-top:6px;font-size:12px">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
+</footer>
+<script>
+async function findChannelId() {
+  const input = document.getElementById('urlInput').value.trim();
+  const err = document.getElementById('errorMsg');
+  err.classList.remove('show');
+  if(!input){err.textContent='Please paste a YouTube channel URL.';err.classList.add('show');return;}
+
+  // Try to extract channel ID directly from URL first
+  const directId = input.match(/(?:\/channel\/)(UC[a-zA-Z0-9_-]{22})/);
+  if(directId) { showResult(directId[1], '', input); return; }
+
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('results').classList.remove('show');
+
+  try {
+    const res = await fetch(input.startsWith('http') ? input : `https://www.youtube.com/${input}`);
+    const html = await res.text();
+    const idMatch = html.match(/"channelId"\s*:\s*"(UC[a-zA-Z0-9_-]{22})"/);
+    const nameMatch = html.match(/"channelName"\s*:\s*"([^"]+)"/)||html.match(/<title>([^<]+)<\/title>/);
+    if(!idMatch) throw new Error('Channel ID not found');
+    const name = nameMatch ? nameMatch[1].replace(' - YouTube','').trim() : '';
+    showResult(idMatch[1], name, input);
+  } catch(e) {
+    document.getElementById('loading').classList.remove('show');
+    err.textContent='Could not fetch channel ID. Make sure you paste a valid YouTube channel URL.';
+    err.classList.add('show');
+  }
+}
+
+function showResult(id, name, originalUrl) {
+  document.getElementById('loading').classList.remove('show');
+  document.getElementById('channelId').textContent = id;
+  document.getElementById('channelName').textContent = name || 'YouTube Channel';
+  document.getElementById('channelUrl').textContent = originalUrl;
+  document.getElementById('urlById').textContent = `https://www.youtube.com/channel/${id}`;
+  const handle = originalUrl.match(/@([a-zA-Z0-9_.-]+)/);
+  document.getElementById('urlByHandle').textContent = handle ? `https://www.youtube.com/@${handle[1]}` : '—';
+  document.getElementById('urlApi').textContent = `https://www.googleapis.com/youtube/v3/channels?id=${id}&key=YOUR_API_KEY`;
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function copyId() {
+  const id = document.getElementById('channelId').textContent;
+  navigator.clipboard.writeText(id).then(()=>{
+    const btn = document.querySelector('.copy-pill');
+    btn.textContent='✓ Copied!';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  });
+}
+document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')findChannelId();});
+</script>
+</body>
+</html>
