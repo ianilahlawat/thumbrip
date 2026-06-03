@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YouTube Channel Stats – Subscriber Count & Info Free | ThumbRip</title>
-  <meta name="description" content="Check any YouTube channel's subscriber count, video count, total views and more for free. Uses YouTube's official API for accurate real-time data." />
+  <meta name="description" content="Check any YouTube channel's subscriber count, video count, total views and more for free. Paste a channel URL and get full stats instantly. No signup needed." />
   <meta name="keywords" content="youtube channel stats, youtube subscriber count checker, check youtube subscribers, youtube channel statistics free" />
   <link rel="canonical" href="https://thumbrip.com/youtube-channel-stats.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,56 +18,54 @@
     .hero{background:var(--white);border-bottom:1px solid var(--gray-200);padding:52px 24px 44px;text-align:center}
     .eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:18px}
     h1{font-family:var(--font-display);font-size:clamp(26px,5vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;line-height:1.1}h1 span{color:var(--red)}
-    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto;line-height:1.7}
-    main{max-width:760px;margin:0 auto;padding:36px 24px 80px}
-    .api-setup{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-    .api-setup h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:6px}
-    .api-setup p{font-size:13px;color:var(--gray-600);margin-bottom:12px;line-height:1.6}
-    .api-row{display:flex;gap:8px}
-    .api-input{flex:1;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;font-family:var(--font-body);color:var(--black);outline:none;transition:border-color .2s}
-    .api-input:focus{border-color:var(--accent)}
-    .api-input::placeholder{color:var(--gray-400)}
-    .save-btn{background:var(--accent);color:var(--white);border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--font-body)}
-    .save-btn:hover{background:#5B21B6}
-    .api-note{font-size:11px;color:var(--gray-400);margin-top:8px;line-height:1.5}
-    .api-note a{color:var(--accent);text-decoration:none}
-    .api-saved{display:none;background:#EAF3DE;border-radius:var(--radius-sm);padding:8px 12px;font-size:12px;color:#3B6D11;margin-top:8px}
-    .api-saved.show{display:block}
-    .tool-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-bottom:16px}
-    .tool-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:14px}
-    .search-box{display:flex;gap:8px;margin-bottom:8px}
-    .search-box input{flex:1;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px 16px;font-size:14px;font-family:var(--font-body);color:var(--black);outline:none;transition:border-color .2s}
-    .search-box input:focus{border-color:var(--accent)}
+    .sub{font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 34px;line-height:1.7}
+    .search-wrap{max-width:660px;margin:0 auto}
+    .search-box{display:flex;background:var(--white);border:2px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;transition:border-color .2s}
+    .search-box:focus-within{border-color:var(--accent)}
+    .search-box input{flex:1;border:none;outline:none;padding:16px 20px;font-size:15px;font-family:var(--font-body);color:var(--black);background:transparent}
     .search-box input::placeholder{color:var(--gray-400)}
-    .search-box button{background:var(--accent);color:var(--white);border:none;padding:12px 20px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;font-family:var(--font-body)}
+    .search-box button{background:var(--accent);color:var(--white);border:none;padding:0 28px;font-size:15px;font-weight:500;font-family:var(--font-body);cursor:pointer;white-space:nowrap}
     .search-box button:hover{background:#5B21B6}
-    .hint{font-size:12px;color:var(--gray-400);margin-bottom:10px}
-    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:12px 16px;border-radius:var(--radius-sm);font-size:13px;display:none;margin-top:10px}.error.show{display:block}
-    .loading{text-align:center;padding:30px 0;display:none}.loading.show{display:block}
-    .spinner{width:36px;height:36px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+    .hint{font-size:12px;color:var(--gray-400);margin-top:10px;text-align:center}
+    main{max-width:800px;margin:0 auto;padding:36px 24px 80px}
+    .error{background:#FFF0EF;border:1px solid #FFCCC9;color:#CC2F26;padding:14px 18px;border-radius:var(--radius-sm);font-size:14px;margin-bottom:24px;display:none}.error.show{display:block}
+    .loading{text-align:center;padding:60px 0;display:none}.loading.show{display:block}
+    .spinner{width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .results{display:none}.results.show{display:block}
-    .ch-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-    .ch-img{width:60px;height:60px;border-radius:50%;object-fit:cover;flex-shrink:0}
-    .ch-img-placeholder{width:60px;height:60px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--accent);flex-shrink:0}
-    .ch-name{font-family:var(--font-display);font-size:20px;font-weight:800;letter-spacing:-.3px}
-    .ch-handle{font-size:13px;color:var(--gray-400);margin-top:2px}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
-    .stat-box{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:14px;text-align:center}
-    .stat-val{font-family:var(--font-display);font-size:20px;font-weight:800;color:var(--black);margin-bottom:4px;line-height:1.2}
-    .stat-label{font-size:11px;color:var(--gray-400)}
-    .info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gray-100);font-size:13px}
+    .channel-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-bottom:16px}
+    .ch-header{display:flex;align-items:center;gap:16px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--gray-100)}
+    .ch-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--gray-100)}
+    .ch-placeholder{width:72px;height:72px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--accent);flex-shrink:0}
+    .ch-name{font-family:var(--font-display);font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+    .ch-handle{font-size:13px;color:var(--gray-400)}
+    .ch-desc{font-size:13px;color:var(--gray-600);margin-top:6px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+    .stat-box{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:18px;text-align:center}
+    .stat-box.highlight{background:var(--accent-soft);border-color:#DDD6FE}
+    .stat-val{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--black);margin-bottom:5px;line-height:1.1}
+    .stat-val.accent{color:var(--accent)}
+    .stat-label{font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.04em}
+    .info-section h3{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:12px}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--gray-100);gap:12px}
     .info-row:last-child{border-bottom:none}
-    .info-key{color:var(--gray-600)}.info-val{color:var(--black);font-weight:500;text-align:right;max-width:65%;font-size:12px}
-    .visit-btn{display:block;background:var(--accent);color:var(--white);text-align:center;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;text-decoration:none;margin-top:14px}
+    .info-key{font-size:13px;color:var(--gray-600);flex-shrink:0}
+    .info-val{font-size:13px;font-weight:500;color:var(--black);text-align:right;word-break:break-all}
+    .visit-btn{display:block;background:var(--accent);color:var(--white);text-align:center;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;text-decoration:none;margin-top:18px;transition:background .15s}
     .visit-btn:hover{background:#5B21B6}
-    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:24px;margin-top:8px}
-    .seo-block h2{font-family:var(--font-display);font-size:18px;font-weight:800;margin-bottom:10px}
-    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:10px}.seo-block p:last-child{margin-bottom:0}
+    .seo-block{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px;margin-top:20px}
+    .seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:800;margin-bottom:12px}
+    .seo-block p{font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:12px}.seo-block p:last-child{margin-bottom:0}
+    .faq-item{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden}
+    .faq-q{padding:14px 18px;font-weight:500;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;user-select:none}
+    .faq-q::after{content:'+';font-size:20px;color:var(--gray-400);transition:transform .2s}
+    .faq-item.open .faq-q::after{transform:rotate(45deg)}
+    .faq-a{font-size:14px;color:var(--gray-600);line-height:1.7;padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s}
+    .faq-item.open .faq-a{max-height:200px;padding:0 18px 14px}
     footer{background:var(--black);color:var(--gray-400);text-align:center;padding:28px 24px;font-size:13px}
     footer a{color:var(--gray-400);text-decoration:none}footer a:hover{color:var(--white)}
     .footer-logo{font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--white);display:block;margin-bottom:8px}.footer-logo span{color:var(--red)}
-    @media(max-width:600px){.nav-links{display:none}.search-box{flex-direction:column}.api-row{flex-direction:column}}
+    @media(max-width:600px){.search-box button{padding:0 16px;font-size:13px}.nav-links{display:none}.ch-header{flex-direction:column;text-align:center}}
   </style>
 </head>
 <body>
@@ -78,53 +76,53 @@
 <div class="hero">
   <div class="eyebrow">YouTube Channel Stats</div>
   <h1>Check Any YouTube <span>Channel Stats</span></h1>
-  <p class="sub">Get real subscriber counts, video counts, total views and more using YouTube's official API. Free, accurate, real-time.</p>
-</div>
-<main>
-  <div class="api-setup">
-    <h3>🔑 Step 1 — Enter your free YouTube API key</h3>
-    <p>This tool uses YouTube's official Data API. Get your free key at <a href="https://console.cloud.google.com" target="_blank" rel="noopener" style="color:var(--accent)">console.cloud.google.com</a> → Enable "YouTube Data API v3" → Create credentials → API key. Free (10,000 calls/day).</p>
-    <div class="api-row">
-      <input class="api-input" type="text" id="apiKeyInput" placeholder="Paste your YouTube Data API v3 key here..." />
-      <button class="save-btn" onclick="saveApiKey()">Save Key</button>
-    </div>
-    <div class="api-note">Your key is saved only in your browser. We never store it on our servers. <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener">How to get a key →</a></div>
-    <div class="api-saved" id="apiSaved">✓ API key saved!</div>
-  </div>
-
-  <div class="tool-card">
-    <h3>📺 Step 2 — Enter channel URL or Channel ID</h3>
+  <p class="sub">Paste any YouTube channel URL and instantly see subscriber count, total views, video count and more. Free, no signup.</p>
+  <div class="search-wrap">
     <div class="search-box">
-      <input type="text" id="channelInput" placeholder="Channel ID (UCxxxxxx) or youtube.com/@handle" />
+      <input type="text" id="urlInput" placeholder="Paste channel URL e.g. youtube.com/@MrBeast" autocomplete="off" />
       <button onclick="getStats()">Get Stats</button>
     </div>
-    <p class="hint">Tip: Use our <a href="/youtube-channel-id.html" style="color:var(--accent)">Channel ID Finder</a> to get the UC... ID first</p>
-    <div class="error" id="errorMsg"></div>
-    <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:13px">Fetching stats...</p></div>
-    <div class="results" id="results">
+    <p class="hint">Works with @handle · /channel/UCxxxx · /c/name · /user/name</p>
+  </div>
+</div>
+<main>
+  <div class="error" id="errorMsg"></div>
+  <div class="loading" id="loading"><div class="spinner"></div><p style="color:var(--gray-400);font-size:14px">Fetching channel stats...</p></div>
+  <div class="results" id="results">
+    <div class="channel-card">
       <div class="ch-header">
-        <img class="ch-img" id="chImg" src="" alt="Channel thumbnail" onerror="this.style.display='none';document.getElementById('chPlaceholder').style.display='flex'" />
-        <div class="ch-img-placeholder" id="chPlaceholder" style="display:none" id2="chPlaceholder">?</div>
+        <img class="ch-img" id="chImg" src="" alt="Channel photo" onerror="this.style.display='none';document.getElementById('chPlaceholder').style.display='flex'" />
+        <div class="ch-placeholder" id="chPlaceholder" style="display:none">?</div>
         <div>
           <div class="ch-name" id="chName">—</div>
           <div class="ch-handle" id="chHandle">—</div>
+          <div class="ch-desc" id="chDesc"></div>
         </div>
       </div>
       <div class="stats-grid">
-        <div class="stat-box"><div class="stat-val" id="subs">—</div><div class="stat-label">Subscribers</div></div>
+        <div class="stat-box highlight"><div class="stat-val accent" id="subs">—</div><div class="stat-label">Subscribers</div></div>
         <div class="stat-box"><div class="stat-val" id="videos">—</div><div class="stat-label">Videos</div></div>
         <div class="stat-box"><div class="stat-val" id="views">—</div><div class="stat-label">Total views</div></div>
-        <div class="stat-box"><div class="stat-val" id="joined">—</div><div class="stat-label">Joined</div></div>
+        <div class="stat-box"><div class="stat-val" id="joined">—</div><div class="stat-label">Year joined</div></div>
       </div>
-      <div id="infoRows"></div>
-      <a class="visit-btn" id="visitBtn" href="#" target="_blank" rel="noopener">Visit Channel →</a>
+      <div class="info-section">
+        <h3>Channel details</h3>
+        <div id="infoRows"></div>
+      </div>
+      <a class="visit-btn" id="visitBtn" href="#" target="_blank" rel="noopener">Visit Channel on YouTube →</a>
     </div>
   </div>
 
   <div class="seo-block">
-    <h2>About YouTube channel statistics</h2>
-    <p>This tool uses the official YouTube Data API v3 to fetch accurate, real-time channel statistics. Data includes subscriber count, total video count, total view count, and account creation date — all publicly available information.</p>
-    <p>Note: Channels can choose to hide their exact subscriber count on YouTube. In those cases, YouTube returns an approximate count (e.g. "1.2M") rather than the exact number.</p>
+    <h2>Why check YouTube channel stats?</h2>
+    <p>Knowing a channel's stats helps creators research competitors, find collaboration partners, and benchmark their own growth. Marketers use it to evaluate influencers before sponsorship deals. Students use it to gauge the credibility of educational channels.</p>
+    <p>ThumbRip uses YouTube's official Data API v3 to fetch accurate, real-time statistics — the same data YouTube displays publicly on every channel page.</p>
+  </div>
+
+  <div style="margin-top:20px">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why does subscriber count show as "Hidden"?</div><div class="faq-a">Some creators choose to hide their exact subscriber count in YouTube Studio settings. In those cases YouTube only reveals an approximate count publicly. This is the creator's own choice — our tool shows whatever YouTube makes available.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How often is this data updated?</div><div class="faq-a">Data is fetched live from YouTube's API every time you search, so it's always current. Subscriber counts on YouTube update in near real-time for large channels and every few hours for smaller ones.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does this work for private channels?</div><div class="faq-a">No — only public YouTube channels can be looked up. Private channels and channels set to "unlisted" will return an error.</div></div>
   </div>
 </main>
 <footer>
@@ -133,45 +131,63 @@
   <p style="margin-top:6px;font-size:12px">© 2026 ThumbRip · Not affiliated with YouTube or Google</p>
 </footer>
 <script>
-function saveApiKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key) return;
-  localStorage.setItem('yt_api_key', key);
-  document.getElementById('apiSaved').classList.add('show');
+const API_KEY = 'AIzaSyCbuR_-EHyBxlhpmlabD8gYQN19I98SAjc';
+
+function fmtNum(n) {
+  const num = parseInt(n);
+  if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+  if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+  if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+  return num.toLocaleString();
 }
-function getApiKey() { return localStorage.getItem('yt_api_key') || document.getElementById('apiKeyInput').value.trim(); }
-function fmtNum(n) { return parseInt(n).toLocaleString(); }
+
+function extractChannelId(input) {
+  input = input.trim();
+  const directId = input.match(/UC[a-zA-Z0-9_-]{22}/);
+  if (directId) return { type: 'id', value: directId[0] };
+  const handle = input.match(/@([a-zA-Z0-9_.-]+)/);
+  if (handle) return { type: 'handle', value: handle[1] };
+  const custom = input.match(/\/(?:c|user)\/([a-zA-Z0-9_.-]+)/);
+  if (custom) return { type: 'search', value: custom[1] };
+  // Plain text search
+  if (input.length > 0) return { type: 'search', value: input };
+  return null;
+}
+
+async function resolveChannelId(parsed) {
+  if (parsed.type === 'id') return parsed.value;
+
+  if (parsed.type === 'handle') {
+    // Use forHandle parameter (YouTube API v3)
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=${encodeURIComponent(parsed.value)}&key=${API_KEY}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    if (data.items?.length) return data.items[0].id;
+  }
+
+  // Fall back to search
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(parsed.value)}&maxResults=1&key=${API_KEY}`);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  if (!data.items?.length) throw new Error('Channel not found. Please try using the full channel URL.');
+  return data.items[0].snippet.channelId;
+}
 
 async function getStats() {
-  const input = document.getElementById('channelInput').value.trim();
-  const apiKey = getApiKey();
+  const input = document.getElementById('urlInput').value.trim();
   const err = document.getElementById('errorMsg');
   err.classList.remove('show');
+  if (!input) { err.textContent = 'Please paste a YouTube channel URL or name.'; err.classList.add('show'); return; }
 
-  if (!apiKey) { err.textContent = 'Please enter your YouTube API key in Step 1.'; err.classList.add('show'); return; }
-  if (!input) { err.textContent = 'Please enter a YouTube Channel ID or channel URL.'; err.classList.add('show'); return; }
+  const parsed = extractChannelId(input);
+  if (!parsed) { err.textContent = 'Could not read the channel URL. Try pasting the full YouTube channel URL.'; err.classList.add('show'); return; }
 
   document.getElementById('loading').classList.add('show');
   document.getElementById('results').classList.remove('show');
 
   try {
-    // Extract channel ID from input
-    let channelId = '';
-    const directId = input.match(/UC[a-zA-Z0-9_-]{22}/);
-    if (directId) {
-      channelId = directId[0];
-    } else {
-      // Try to resolve handle via search API
-      const handleMatch = input.match(/@([a-zA-Z0-9_.-]+)/);
-      const query = handleMatch ? handleMatch[1] : input;
-      const searchRes = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(query)}&maxResults=1&key=${apiKey}`);
-      const searchData = await searchRes.json();
-      if (searchData.error) throw new Error(searchData.error.message);
-      if (!searchData.items?.length) throw new Error('Channel not found. Try using the Channel ID (UCxxxxxx) directly.');
-      channelId = searchData.items[0].snippet.channelId;
-    }
-
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${apiKey}`);
+    const channelId = await resolveChannelId(parsed);
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id=${channelId}&key=${API_KEY}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
     if (!data.items?.length) throw new Error('Channel not found.');
@@ -180,37 +196,50 @@ async function getStats() {
     const sn = ch.snippet;
     const st = ch.statistics;
 
-    document.getElementById('chImg').src = sn.thumbnails?.medium?.url || sn.thumbnails?.default?.url || '';
-    document.getElementById('chPlaceholder').textContent = sn.title?.charAt(0) || '?';
-    document.getElementById('chName').textContent = sn.title || '—';
-    document.getElementById('chHandle').textContent = sn.customUrl ? `@${sn.customUrl.replace('@','')}` : channelId;
-    document.getElementById('subs').textContent = st.hiddenSubscriberCount ? 'Hidden' : fmtNum(st.subscriberCount);
-    document.getElementById('videos').textContent = fmtNum(st.videoCount);
-    document.getElementById('views').textContent = fmtNum(st.viewCount);
-    document.getElementById('joined').textContent = sn.publishedAt ? new Date(sn.publishedAt).getFullYear() : '—';
-    document.getElementById('visitBtn').href = `https://www.youtube.com/channel/${channelId}`;
+    // Thumbnail
+    const thumbUrl = sn.thumbnails?.high?.url || sn.thumbnails?.medium?.url || sn.thumbnails?.default?.url || '';
+    document.getElementById('chImg').src = thumbUrl;
+    document.getElementById('chPlaceholder').textContent = (sn.title || '?').charAt(0).toUpperCase();
+    if (thumbUrl) {
+      document.getElementById('chImg').style.display = 'block';
+      document.getElementById('chPlaceholder').style.display = 'none';
+    }
 
-    document.getElementById('infoRows').innerHTML = [
+    document.getElementById('chName').textContent = sn.title || '—';
+    document.getElementById('chHandle').textContent = sn.customUrl ? `@${sn.customUrl.replace('@','')}` : `ID: ${channelId}`;
+    document.getElementById('chDesc').textContent = sn.description || '';
+
+    // Stats
+    document.getElementById('subs').textContent = st.hiddenSubscriberCount ? 'Hidden' : fmtNum(st.subscriberCount || 0);
+    document.getElementById('videos').textContent = fmtNum(st.videoCount || 0);
+    document.getElementById('views').textContent = fmtNum(st.viewCount || 0);
+    document.getElementById('joined').textContent = sn.publishedAt ? new Date(sn.publishedAt).getFullYear() : '—';
+
+    // Info rows
+    const rows = [
       { k: 'Channel ID', v: channelId },
-      { k: 'Country', v: sn.country || 'Not set' },
-      { k: 'Description', v: (sn.description || '').substring(0, 80) + (sn.description?.length > 80 ? '...' : '') || 'None' },
-    ].map(r => `<div class="info-row"><span class="info-key">${r.k}</span><span class="info-val">${r.v}</span></div>`).join('');
+      { k: 'Country', v: sn.country || 'Not specified' },
+      { k: 'Exact subscribers', v: st.hiddenSubscriberCount ? 'Hidden by creator' : parseInt(st.subscriberCount || 0).toLocaleString() },
+      { k: 'Exact views', v: parseInt(st.viewCount || 0).toLocaleString() },
+      { k: 'Joined', v: sn.publishedAt ? new Date(sn.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '—' },
+    ];
+    document.getElementById('infoRows').innerHTML = rows.map(r =>
+      `<div class="info-row"><span class="info-key">${r.k}</span><span class="info-val">${r.v}</span></div>`
+    ).join('');
+
+    document.getElementById('visitBtn').href = `https://www.youtube.com/channel/${channelId}`;
 
     document.getElementById('loading').classList.remove('show');
     document.getElementById('results').classList.add('show');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch(e) {
     document.getElementById('loading').classList.remove('show');
-    err.textContent = `Error: ${e.message}`;
+    err.textContent = `Could not fetch stats: ${e.message}`;
     err.classList.add('show');
   }
 }
 
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem('yt_api_key');
-  if (saved) { document.getElementById('apiKeyInput').value = saved; document.getElementById('apiSaved').classList.add('show'); }
-});
-
-document.getElementById('channelInput').addEventListener('keydown', e => { if (e.key === 'Enter') getStats(); });
+document.getElementById('urlInput').addEventListener('keydown', e => { if (e.key === 'Enter') getStats(); });
 </script>
 </body>
 </html>
