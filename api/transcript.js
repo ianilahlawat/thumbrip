@@ -20,21 +20,14 @@ export default async function handler(req, res) {
 
     const html = await response.text();
 
-    // Extract ytInitialPlayerResponse — it's a JS variable assignment in a script tag
-    // We split on the variable name, then find the matching closing brace
+    // Extract ytInitialPlayerResponse using brace matching
     let playerData = null;
-
     const splitToken = 'ytInitialPlayerResponse = ';
     const splitIdx = html.indexOf(splitToken);
 
     if (splitIdx !== -1) {
       const jsonStart = splitIdx + splitToken.length;
-      // Walk forward to find matching closing brace
-      let depth = 0;
-      let inString = false;
-      let escape = false;
-      let end = jsonStart;
-
+      let depth = 0, inString = false, escape = false, end = jsonStart;
       for (let i = jsonStart; i < html.length; i++) {
         const ch = html[i];
         if (escape) { escape = false; continue; }
@@ -42,108 +35,146 @@ export default async function handler(req, res) {
         if (ch === '"') { inString = !inString; continue; }
         if (inString) continue;
         if (ch === '{') depth++;
-        if (ch === '}') {
-          depth--;
-          if (depth === 0) { end = i + 1; break; }
-        }
+        if (ch === '}') { depth--; if (depth === 0) { end = i + 1; break; } }
       }
-
-      try {
-        playerData = JSON.parse(html.slice(jsonStart, end));
-      } catch(e) {
-        playerData = null;
-      }
+      try { playerData = JSON.parse(html.slice(jsonStart, end)); } catch(e) {}
     }
 
     if (!playerData) {
       return res.status(500).json({ error: 'Could not parse YouTube page data. Please try again.' });
     }
 
-    // Get caption tracks
     const captionTracks = playerData?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
 
-    if (!captionTracks || !captionTracks.length) {
+    if (!captionTracks?.length) {
       return res.status(404).json({ error: 'No captions found for this video. The creator may not have captions enabled.' });
     }
 
-    // Pick best track: manual English > auto English > any English > first track
+    // Pick best track
     const track =
-      captionTracks.find(t => (t.languageCode === 'en' || t.languageCode === 'en-US') && t.kind !== 'asr') ||
-      captionTracks.find(t => t.languageCode === 'en' || t.languageCode === 'en-US') ||
-      captionTracks.find(t => t.languageCode?.startsWith('en')) ||
+      captionTracks.find(t => t.languageCode === 'en' && t.kind !== 'asr') ||
+      captionTracks.find(t => t.languageCode === 'en-US' && t.kind !== 'asr') ||
+      captionTracks.find(t => t.languageCode === 'en') ||
+      captionTracks.find(t => t.languageCode === 'en-US') ||
       captionTracks[0];
 
-    if (!track?.baseUrl) {
-      return res.status(404).json({ error: 'Caption track URL not found.' });
-    }
+    // The baseUrl from YouTube is often missing the tlang and other params
+    // Build the URL fresh using the timedtext API directly
+    // Extract the key params from the baseUrl
+    const baseUrl = track.baseUrl;
+    const urlObj = new URL(baseUrl);
 
-    // Fetch captions in JSON3 format (easiest to parse)
-    const captionUrl = track.baseUrl + '&fmt=json3';
-    const captionRes = await fetch(captionUrl);
-    const captionText = await captionRes.text();
+    // Add fmt=json3 for JSON format and lang param
+    urlObj.searchParams.set('fmt', 'json3');
+    urlObj.searchParams.set('lang', track.languageCode);
+
+    // Also try with xorb, xobt, xovt params that YouTube sometimes needs
+    const captionUrl = urlObj.toString();
 
     let lines = [];
 
-    // Parse JSON3 format
-    try {
-      const captionJson = JSON.parse(captionText);
-      const events = captionJson?.events || [];
-
-      for (const event of events) {
-        if (!event.segs || !event.tStartMs) continue;
-        const text = event.segs
-          .map(s => s.utf8 || '')
-          .join('')
-          .replace(/\n/g, ' ')
-          .trim();
-        if (text && text !== '\n' && text !== ' ') {
-          lines.push({
-            start: event.tStartMs / 1000,
-            text
-          });
-        }
+    // Fetch with proper headers mimicking a browser request
+    const captionRes = await fetch(captionUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': `https://www.youtube.com/watch?v=${videoId}`,
+        'Origin': 'https://www.youtube.com',
       }
-    } catch(e) {
-      // JSON3 failed — try XML
-      lines = [];
+    });
+
+    const captionText = await captionRes.text();
+
+    // Try JSON3 parse
+    if (captionText && captionText.length > 10) {
+      try {
+        const captionJson = JSON.parse(captionText);
+        const events = captionJson?.events || [];
+        for (const event of events) {
+          if (!event.segs || !event.tStartMs) continue;
+          const text = event.segs
+            .map(s => s.utf8 || '')
+            .join('')
+            .replace(/\n/g, ' ')
+            .trim();
+          if (text && text.trim()) {
+            lines.push({ start: event.tStartMs / 1000, text: text.trim() });
+          }
+        }
+      } catch(e) {}
     }
 
-    // Fallback: parse as XML
+    // If still empty, try XML format
     if (!lines.length) {
-      const xmlRes = await fetch(track.baseUrl);
+      const xmlUrl = new URL(baseUrl);
+      xmlUrl.searchParams.set('lang', track.languageCode);
+      // Remove fmt to get XML
+      xmlUrl.searchParams.delete('fmt');
+
+      const xmlRes = await fetch(xmlUrl.toString(), {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          'Referer': `https://www.youtube.com/watch?v=${videoId}`,
+          'Origin': 'https://www.youtube.com',
+        }
+      });
       const xml = await xmlRes.text();
 
-      const parts = xml.split('<text ');
-      for (let i = 1; i < parts.length; i++) {
-        const part = parts[i];
-        const startMatch = part.match(/start="([^"]+)"/);
-        const closeTag = part.indexOf('>');
-        const endTag = part.indexOf('</text>');
-        if (!startMatch || closeTag === -1 || endTag === -1) continue;
+      if (xml && xml.includes('<text')) {
+        const parts = xml.split('<text ');
+        for (let i = 1; i < parts.length; i++) {
+          const part = parts[i];
+          const startMatch = part.match(/start="([^"]+)"/);
+          const closeTag = part.indexOf('>');
+          const endTag = part.indexOf('</text>');
+          if (!startMatch || closeTag === -1 || endTag === -1) continue;
+          const start = parseFloat(startMatch[1]);
+          const raw = part.slice(closeTag + 1, endTag);
+          const text = raw
+            .replace(/<[^>]+>/g, '')
+            .replace(/&amp;/g, '&')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&#39;/g, "'")
+            .replace(/&quot;/g, '"')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(parseInt(c)))
+            .trim();
+          if (text) lines.push({ start, text });
+        }
+      }
+    }
 
-        const start = parseFloat(startMatch[1]);
-        const raw = part.slice(closeTag + 1, endTag);
-        const text = raw
-          .replace(/<[^>]+>/g, '')
-          .replace(/&amp;/g, '&')
-          .replace(/&lt;/g, '<')
-          .replace(/&gt;/g, '>')
-          .replace(/&#39;/g, "'")
-          .replace(/&quot;/g, '"')
-          .replace(/&nbsp;/g, ' ')
-          .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(parseInt(c)))
-          .trim();
-
-        if (text) lines.push({ start, text });
+    // Last resort — use YouTube's timedtext API directly with just videoId and lang
+    if (!lines.length) {
+      const fallbackUrl = `https://www.youtube.com/api/timedtext?v=${videoId}&lang=${track.languageCode}&fmt=json3&xorb=2&xobt=3&xovt=3`;
+      const fallbackRes = await fetch(fallbackUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          'Referer': `https://www.youtube.com/watch?v=${videoId}`,
+        }
+      });
+      const fallbackText = await fallbackRes.text();
+      if (fallbackText && fallbackText.length > 10) {
+        try {
+          const fallbackJson = JSON.parse(fallbackText);
+          const events = fallbackJson?.events || [];
+          for (const event of events) {
+            if (!event.segs || !event.tStartMs) continue;
+            const text = event.segs.map(s => s.utf8 || '').join('').replace(/\n/g, ' ').trim();
+            if (text) lines.push({ start: event.tStartMs / 1000, text });
+          }
+        } catch(e) {}
       }
     }
 
     if (!lines.length) {
-      return res.status(404).json({ error: 'Transcript is empty or could not be parsed for this video.' });
+      return res.status(404).json({
+        error: 'Could not load transcript for this video. Try a different video.'
+      });
     }
 
-    // Get video title
-    let title = playerData?.videoDetails?.title || 'YouTube Video';
+    const title = playerData?.videoDetails?.title || 'YouTube Video';
 
     return res.status(200).json({
       title,
