@@ -1,4 +1,5 @@
-from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import NoTranscriptFound, TranscriptsDisabled
 from http.server import BaseHTTPRequestHandler
 import json
 import re
@@ -22,29 +23,31 @@ class handler(BaseHTTPRequestHandler):
             return
 
         try:
-            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            # v1.x API — fetch directly, returns FetchedTranscript object
+            ytt_api = YouTubeTranscriptApi()
 
-            transcript = None
+            # Try English first, then auto-generated, then any language
+            transcript_data = None
             try:
-                transcript = transcript_list.find_manually_created_transcript(['en', 'en-US', 'en-GB'])
+                transcript_data = ytt_api.fetch(video_id, languages=['en', 'en-US', 'en-GB'])
             except NoTranscriptFound:
                 try:
-                    transcript = transcript_list.find_generated_transcript(['en', 'en-US', 'en-GB'])
-                except NoTranscriptFound:
+                    # Try to get whatever language is available
+                    transcript_list = ytt_api.list(video_id)
                     for t in transcript_list:
-                        transcript = t
+                        transcript_data = t.fetch()
                         break
+                except Exception:
+                    pass
 
-            if not transcript:
+            if not transcript_data:
                 self.wfile.write(json.dumps({'error': 'No captions found for this video.'}).encode())
                 return
 
-            data = transcript.fetch()
-
             lines = []
-            for item in data:
-                text = item.get('text', '').strip()
-                start = item.get('start', 0)
+            for snippet in transcript_data:
+                text = snippet.text.strip() if hasattr(snippet, 'text') else str(snippet.get('text', '')).strip()
+                start = snippet.start if hasattr(snippet, 'start') else float(snippet.get('start', 0))
                 if text:
                     lines.append({'start': round(float(start), 2), 'text': text})
 
@@ -52,6 +55,7 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'error': 'Transcript is empty for this video.'}).encode())
                 return
 
+            # Get video title
             title = 'YouTube Video'
             try:
                 url = f'https://noembed.com/embed?url=https://www.youtube.com/watch?v={video_id}'
@@ -65,8 +69,6 @@ class handler(BaseHTTPRequestHandler):
             result = {
                 'title': title,
                 'transcript': lines,
-                'language': transcript.language_code,
-                'trackName': transcript.language,
                 'count': len(lines)
             }
             self.wfile.write(json.dumps(result).encode())
@@ -74,4 +76,4 @@ class handler(BaseHTTPRequestHandler):
         except TranscriptsDisabled:
             self.wfile.write(json.dumps({'error': 'Transcripts are disabled for this video by the creator.'}).encode())
         except Exception as e:
-            self.wfile.write(json.dumps({'error': f'Could not fetch transcript: {str(e)}'}).encode())
+            self.wfile.write(json.dumps({'error': f'Error: {str(e)}'}).encode())
