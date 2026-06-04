@@ -6,409 +6,167 @@
   <title>Free YouTube Tools – Thumbnail Downloader, Channel Stats & More | ThumbRip</title>
   <meta name="description" content="Free YouTube tools for creators: thumbnail downloader, channel stats, playlist duration, video info, embed code generator and more. No signup, no watermark." />
   <meta name="keywords" content="youtube tools, youtube thumbnail downloader, youtube channel stats, youtube playlist duration, free youtube tools" />
-  <meta property="og:title" content="Free YouTube Tools – ThumbRip" />
-  <meta property="og:description" content="All the free YouTube tools you need in one place. No signup, no watermark." />
-  <meta property="og:url" content="https://thumbrip.com/tools.html" />
   <link rel="canonical" href="https://thumbrip.com/tools.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:    #0C0C0C;
-      --white:    #F7F5F0;
-      --cream:    #F0EDE6;
-      --red:      #E8341A;
-      --red-dark: #C22A12;
-      --red-muted:#F5E8E5;
-      --gray-1:   #1A1A1A;
-      --gray-2:   #2E2E2E;
-      --gray-3:   #6B6B6B;
-      --gray-4:   #9E9E9E;
-      --gray-5:   #D8D5CF;
-      --gray-6:   #ECEAE5;
+      --black:   #111110;
+      --white:   #FFFFFF;
+      --cream:   #F7F5F0;
+      --cream-2: #EDEAE3;
+      --red:     #E8341A;
+      --red-dark:#C22A12;
+      --red-soft:#FDF0ED;
+      --gray-1:  #3A3A38;
+      --gray-2:  #6B6B68;
+      --gray-3:  #9E9E9B;
+      --gray-4:  #C8C6C0;
+      --gray-5:  #E2DFD9;
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body:    'DM Sans', sans-serif;
       --radius:   4px;
-      --radius-lg:12px;
+      --radius-lg:14px;
     }
 
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--white);
-      color: var(--black);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+    body { font-family: var(--font-body); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
 
     /* ── NAV ── */
-    nav {
-      background: var(--black);
-      padding: 0 40px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--white);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
+    nav { background: var(--white); border-bottom: 1px solid var(--gray-5); padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: var(--font-display); font-size: 24px; font-weight: 900; color: var(--black); text-decoration: none; letter-spacing: -0.5px; }
     .logo span { color: var(--red); }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--gray-4);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a { font-size: 12px; font-weight: 400; color: var(--gray-2); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
 
     /* ── HERO ── */
     .hero {
-      background: var(--black);
-      padding: 80px 40px 72px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--gray-5);
+      padding: 80px 48px 72px;
       position: relative;
       overflow: hidden;
-      border-bottom: 1px solid var(--gray-2);
     }
-    .hero::before {
-      content: 'TOOLS';
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: clamp(120px, 18vw, 220px);
-      font-weight: 900;
-      color: var(--gray-2);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: flex-end; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1.5px; background: var(--red); }
+    h1 { font-family: var(--font-display); font-size: clamp(38px, 5.5vw, 72px); font-weight: 900; line-height: 1.0; letter-spacing: -2.5px; color: var(--black); margin-bottom: 18px; }
+    h1 em { color: var(--red); font-style: italic; }
+    .hero-sub { font-size: 15px; font-weight: 300; color: var(--gray-2); line-height: 1.8; max-width: 460px; }
+    .hero-count {
+      text-align: right;
+      flex-shrink: 0;
     }
-    .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 20px;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--red);
-    }
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 6vw, 72px);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      color: var(--white);
-      margin-bottom: 20px;
-      max-width: 700px;
-    }
-    h1 em { color: var(--red); font-style: normal; }
-    .hero-sub {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--gray-4);
-      line-height: 1.7;
-      max-width: 480px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 48px;
-      padding-top: 32px;
-      border-top: 1px solid var(--gray-2);
-    }
-    .hero-stat-val {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .hero-stat-label {
-      font-size: 11px;
-      color: var(--gray-4);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
+    .hero-count-num { font-family: var(--font-display); font-size: 80px; font-weight: 900; color: var(--gray-5); line-height: 1; }
+    .hero-count-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-3); }
 
     /* ── MAIN ── */
-    main { max-width: 1100px; margin: 0 auto; padding: 72px 40px 100px; }
+    main { max-width: 1100px; margin: 0 auto; padding: 72px 48px 100px; }
 
-    /* ── SECTION LABELS ── */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-      margin-top: 60px;
-    }
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; margin-top: 56px; }
     .section-header:first-child { margin-top: 0; }
-    .section-num {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--red);
-    }
-    .section-title {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gray-3);
-    }
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--gray-5);
-    }
+    .section-num { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: var(--red); }
+    .section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-3); }
+    .section-line { flex: 1; height: 1px; background: var(--gray-5); }
 
     /* ── TOOL GRID ── */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2px;
-      background: var(--gray-5);
-      border: 1px solid var(--gray-5);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
 
     /* ── TOOL CARD ── */
     .tool-card {
-      background: var(--white);
-      padding: 28px 30px;
+      background: var(--cream);
+      border: 1px solid var(--gray-5);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px 56px;
       text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+      display: block;
       position: relative;
-      transition: background 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
       overflow: hidden;
     }
-    .tool-card::after {
+    .tool-card::before {
       content: '→';
       position: absolute;
-      bottom: 28px;
-      right: 30px;
+      bottom: 22px;
+      right: 26px;
       font-size: 18px;
-      color: var(--gray-5);
+      color: var(--gray-4);
       transition: color 0.2s, transform 0.2s;
     }
     .tool-card:hover {
-      background: var(--black);
+      border-color: var(--black);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.08);
+      background: var(--white);
     }
-    .tool-card:hover .tool-name { color: var(--white); }
-    .tool-card:hover .tool-desc { color: var(--gray-4); }
-    .tool-card:hover .tool-tag { background: var(--gray-2); color: var(--gray-4); border-color: var(--gray-2); }
-    .tool-card:hover::after { color: var(--red); transform: translateX(4px); }
-    .tool-card:hover .tool-icon-wrap { background: var(--gray-2); }
-    .tool-card:hover .tool-icon { color: var(--red); }
+    .tool-card:hover::before { color: var(--red); transform: translateX(4px); }
 
-    /* Featured card */
+    /* Featured — spans full width */
     .tool-card.featured {
-      background: var(--black);
-    }
-    .tool-card.featured .tool-name { color: var(--white); }
-    .tool-card.featured .tool-desc { color: var(--gray-4); }
-    .tool-card.featured .tool-tag { background: var(--red); color: var(--white); border-color: var(--red); }
-    .tool-card.featured::after { color: var(--red); }
-    .tool-card.featured .tool-icon-wrap { background: var(--red); }
-    .tool-card.featured .tool-icon { color: var(--white); }
-
-    .tool-top {
+      grid-column: 1 / -1;
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .tool-icon-wrap {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius);
-      background: var(--gray-6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-      flex-shrink: 0;
-    }
-    .tool-icon {
-      font-size: 20px;
-      color: var(--gray-3);
-      transition: color 0.2s;
-    }
-    .tool-tag {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--gray-5);
-      color: var(--gray-3);
-      background: transparent;
-      transition: all 0.2s;
-    }
-    .tag-hot { background: var(--red-muted); color: var(--red); border-color: var(--red-muted); }
-    .tag-new { background: #EAF3DE; color: #3B6D11; border-color: #EAF3DE; }
-
-    .tool-name {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--black);
-      line-height: 1.2;
-      letter-spacing: -0.3px;
-      margin-bottom: 10px;
-      transition: color 0.2s;
-    }
-    .tool-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--gray-3);
-      line-height: 1.7;
-      padding-bottom: 32px;
-      transition: color 0.2s;
-    }
-
-    /* ── WIDE CARD (spans 2 cols) ── */
-    .tool-card.wide {
-      grid-column: span 2;
       flex-direction: row;
       align-items: center;
-      gap: 40px;
+      gap: 48px;
+      padding: 32px 36px 32px 36px;
+      background: var(--black);
+      border-color: var(--black);
     }
-    .tool-card.wide .tool-desc { padding-bottom: 0; }
-    .tool-card.wide::after { bottom: 50%; transform: translateY(50%); }
-    .tool-card.wide:hover::after { transform: translateY(50%) translateX(4px); }
+    .tool-card.featured::before { color: var(--red); bottom: 50%; transform: translateY(50%); right: 32px; }
+    .tool-card.featured:hover { background: var(--black); border-color: var(--red); }
+    .tool-card.featured:hover::before { color: var(--red); transform: translateY(50%) translateX(4px); }
+    .tool-card.featured .tool-icon-wrap { background: var(--red); }
+    .tool-card.featured .tool-icon { color: var(--white); }
+    .tool-card.featured .tool-name { color: var(--white); }
+    .tool-card.featured .tool-desc { color: var(--gray-3); padding-bottom: 0; }
+    .tool-card.featured .tool-tag { background: rgba(255,255,255,0.1); color: var(--gray-3); border-color: transparent; }
 
-    /* ── SEO BLOCK ── */
-    .seo-section {
-      margin-top: 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--gray-5);
-      border: 1px solid var(--gray-5);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .seo-block {
-      background: var(--white);
-      padding: 36px 40px;
-    }
-    .seo-block h2 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      margin-bottom: 14px;
-      color: var(--black);
-    }
-    .seo-block p {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--gray-3);
-      line-height: 1.8;
-    }
-    .seo-block p a { color: var(--red); text-decoration: none; }
-    .seo-block p a:hover { text-decoration: underline; }
+    .tool-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+    .tool-icon-wrap { width: 44px; height: 44px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--gray-5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tool-icon { font-size: 20px; }
+    .tool-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--gray-5); color: var(--gray-2); background: var(--white); }
+    .tag-hot { background: var(--red-soft); color: var(--red); border-color: var(--red-soft); }
+    .tag-new { background: #EAF3DE; color: #3B6D11; border-color: #EAF3DE; }
+
+    .tool-name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--black); line-height: 1.2; letter-spacing: -0.3px; margin-bottom: 10px; }
+    .tool-desc { font-size: 13px; font-weight: 300; color: var(--gray-2); line-height: 1.7; }
+
+    /* ── SEO ── */
+    .seo-section { margin-top: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .seo-card { background: var(--cream); border: 1px solid var(--gray-5); border-radius: var(--radius-lg); padding: 36px 38px; }
+    .seo-card h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 14px; color: var(--black); }
+    .seo-card p { font-size: 14px; font-weight: 300; color: var(--gray-2); line-height: 1.8; }
+    .seo-card p a { color: var(--red); text-decoration: none; }
+    .seo-card p a:hover { text-decoration: underline; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      color: var(--gray-4);
-      padding: 48px 40px;
-    }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--white);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-    }
+    footer { background: var(--black); color: var(--gray-3); padding: 48px 48px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; }
+    .footer-logo { font-family: var(--font-display); font-size: 26px; font-weight: 900; color: var(--white); text-decoration: none; display: block; margin-bottom: 6px; }
     .footer-logo span { color: var(--red); }
-    .footer-tagline {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--gray-4);
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gray-4);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .footer-tagline { font-size: 13px; font-weight: 300; color: var(--gray-3); }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-3); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--white); }
-    .footer-copy {
-      max-width: 1100px;
-      margin: 32px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid var(--gray-2);
-      font-size: 12px;
-      color: var(--gray-3);
-    }
+    .footer-copy { max-width: 1100px; margin: 28px auto 0; padding-top: 22px; border-top: 1px solid #222; font-size: 12px; color: #444; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .hero { padding: 60px 20px; }
-      .hero::before { font-size: 80px; right: -10px; }
-      main { padding: 48px 20px 80px; }
-      .tool-card.wide { grid-column: span 1; flex-direction: column; }
-      .hero-stats { gap: 24px; flex-wrap: wrap; }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-count { display: none; }
       .seo-section { grid-template-columns: 1fr; }
-      footer { padding: 40px 20px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .nav-links { display: none; }
+      .tool-card.featured { flex-direction: column; gap: 20px; }
     }
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 52px 20px 48px; }
+      main { padding: 48px 20px 80px; }
+      footer { padding: 40px 20px; }
       .tools-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -418,7 +176,7 @@
 <nav>
   <a class="logo" href="/">Thumb<span>Rip</span></a>
   <div class="nav-links">
-    <a href="/">Thumbnail</a>
+    <a href="/">Home</a>
     <a href="/tools.html" class="active">Tools</a>
     <a href="/about.html">About</a>
   </div>
@@ -426,29 +184,20 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Free YouTube Tools</div>
-    <h1>Every tool a<br><em>creator needs.</em></h1>
-    <p class="hero-sub">A growing collection of free YouTube tools. No account, no watermark, no limits — just results.</p>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-val">6</div>
-        <div class="hero-stat-label">Tools available</div>
-      </div>
-      <div>
-        <div class="hero-stat-val">0</div>
-        <div class="hero-stat-label">Signups needed</div>
-      </div>
-      <div>
-        <div class="hero-stat-val">Free</div>
-        <div class="hero-stat-label">Always</div>
-      </div>
+    <div>
+      <div class="hero-eyebrow">Free YouTube Tools</div>
+      <h1>Every tool a<br>creator <em>needs.</em></h1>
+      <p class="hero-sub">A growing collection of free YouTube tools. No account, no watermark, no limits — just results.</p>
+    </div>
+    <div class="hero-count">
+      <div class="hero-count-num">6</div>
+      <div class="hero-count-label">Tools available</div>
     </div>
   </div>
 </div>
 
 <main>
 
-  <!-- SECTION 1 -->
   <div class="section-header">
     <span class="section-num">01</span>
     <span class="section-title">Thumbnail tools</span>
@@ -456,23 +205,20 @@
   </div>
 
   <div class="tools-grid">
-    <a class="tool-card featured wide" href="/index.html">
+    <a class="tool-card featured" href="/index.html">
       <div>
         <div class="tool-top">
-          <div class="tool-icon-wrap">
-            <span class="tool-icon">🖼️</span>
-          </div>
+          <div class="tool-icon-wrap"><span class="tool-icon">🖼️</span></div>
           <span class="tool-tag">Most popular</span>
         </div>
-        <div class="tool-name">YouTube Thumbnail<br>Downloader</div>
+        <div class="tool-name">YouTube Thumbnail Downloader</div>
       </div>
       <div style="flex:1">
-        <div class="tool-desc">Download any YouTube video thumbnail in all 5 sizes — up to HD 1280×720. Works with videos, Shorts and youtu.be links. The fastest thumbnail grabber on the web.</div>
+        <div class="tool-desc">Download any YouTube video thumbnail in all 5 sizes — up to HD 1280×720. Works with videos, Shorts and youtu.be links.</div>
       </div>
     </a>
   </div>
 
-  <!-- SECTION 2 -->
   <div class="section-header">
     <span class="section-num">02</span>
     <span class="section-title">Video & channel info</span>
@@ -480,7 +226,6 @@
   </div>
 
   <div class="tools-grid">
-
     <a class="tool-card" href="/youtube-video-stats.html">
       <div class="tool-top">
         <div class="tool-icon-wrap"><span class="tool-icon">📊</span></div>
@@ -507,10 +252,8 @@
       <div class="tool-name">Channel ID Finder</div>
       <div class="tool-desc">Find the Channel ID of any YouTube channel by pasting its URL. Works with @handles and all URL formats.</div>
     </a>
-
   </div>
 
-  <!-- SECTION 3 -->
   <div class="section-header">
     <span class="section-num">03</span>
     <span class="section-title">Utility tools</span>
@@ -518,14 +261,13 @@
   </div>
 
   <div class="tools-grid">
-
     <a class="tool-card" href="/youtube-playlist-duration.html">
       <div class="tool-top">
         <div class="tool-icon-wrap"><span class="tool-icon">⏱️</span></div>
         <span class="tool-tag tag-hot">Popular</span>
       </div>
-      <div class="tool-name">Playlist Duration Calculator</div>
-      <div class="tool-desc">Calculate the total length of any YouTube playlist. See watch time at 1×, 1.25×, 1.5×, 1.75× and 2× speed.</div>
+      <div class="tool-name">Playlist Duration</div>
+      <div class="tool-desc">Calculate the total length of any YouTube playlist at 1×, 1.25×, 1.5×, 1.75× and 2× speed.</div>
     </a>
 
     <a class="tool-card" href="/youtube-embed-code.html">
@@ -534,20 +276,18 @@
         <span class="tool-tag tag-new">New</span>
       </div>
       <div class="tool-name">Embed Code Generator</div>
-      <div class="tool-desc">Generate clean HTML embed code for any YouTube video. Customize size, autoplay, controls and privacy mode.</div>
+      <div class="tool-desc">Generate clean HTML embed code for any YouTube video with custom size, autoplay and privacy options.</div>
     </a>
-
   </div>
 
-  <!-- SEO BLOCK -->
   <div class="seo-section">
-    <div class="seo-block">
-      <h2>Free YouTube tools for every creator</h2>
-      <p>ThumbRip is a growing collection of free YouTube tools built for content creators, digital marketers, students, and anyone who works with YouTube videos. Every tool is completely free, requires no account, and works directly in your browser.</p>
+    <div class="seo-card">
+      <h2>Free tools for every creator</h2>
+      <p>ThumbRip is a growing collection of free YouTube tools built for content creators, marketers, students, and anyone who works with YouTube. Every tool is completely free, requires no account, and works directly in your browser.</p>
     </div>
-    <div class="seo-block">
+    <div class="seo-card">
       <h2>More tools coming soon</h2>
-      <p>We're constantly building new tools based on what creators actually need. Coming soon: YouTube transcript extractor, tag analyzer, title generator and more. Check back regularly or use our <a href="/index.html">thumbnail downloader</a> — our most popular tool.</p>
+      <p>We're building new tools constantly — transcript extractor, tag analyzer, title generator and more are on the way. Meanwhile, try our most popular tool: the <a href="/index.html">YouTube Thumbnail Downloader</a>.</p>
     </div>
   </div>
 
@@ -560,7 +300,7 @@
       <div class="footer-tagline">Free YouTube tools for creators</div>
     </div>
     <div class="footer-links">
-      <a href="/">Thumbnail</a>
+      <a href="/">Home</a>
       <a href="/tools.html">Tools</a>
       <a href="/about.html">About</a>
       <a href="/privacy-policy.html">Privacy</a>
