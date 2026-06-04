@@ -1,157 +1,159 @@
 // api/transcript.js
-// Vercel serverless function - fetches YouTube transcripts server-side
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   const { videoId } = req.query;
-
   if (!videoId || !/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
     return res.status(400).json({ error: 'Invalid video ID' });
   }
 
   try {
-    // Fetch YouTube page server-side
     const response = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept-Language': 'en-US,en;q=0.9',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Cookie': 'CONSENT=YES+; SOCS=CAI;',
       }
     });
 
     const html = await response.text();
 
-    // Extract caption tracks from YouTube's page data
-    // YouTube embeds this as JSON inside a script tag
-    let captions = [];
+    // Extract ytInitialPlayerResponse — it's a JS variable assignment in a script tag
+    // We split on the variable name, then find the matching closing brace
+    let playerData = null;
 
-    // Method 1: try ytInitialPlayerResponse
-    const playerMatch = html.match(/ytInitialPlayerResponse\s*=\s*({.+?})\s*;/s);
-    if (playerMatch) {
+    const splitToken = 'ytInitialPlayerResponse = ';
+    const splitIdx = html.indexOf(splitToken);
+
+    if (splitIdx !== -1) {
+      const jsonStart = splitIdx + splitToken.length;
+      // Walk forward to find matching closing brace
+      let depth = 0;
+      let inString = false;
+      let escape = false;
+      let end = jsonStart;
+
+      for (let i = jsonStart; i < html.length; i++) {
+        const ch = html[i];
+        if (escape) { escape = false; continue; }
+        if (ch === '\\' && inString) { escape = true; continue; }
+        if (ch === '"') { inString = !inString; continue; }
+        if (inString) continue;
+        if (ch === '{') depth++;
+        if (ch === '}') {
+          depth--;
+          if (depth === 0) { end = i + 1; break; }
+        }
+      }
+
       try {
-        const playerData = JSON.parse(playerMatch[1]);
-        const captionTracks = playerData?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-        if (captionTracks?.length) captions = captionTracks;
-      } catch(e) {}
-    }
-
-    // Method 2: fallback - extract captionTracks directly
-    if (!captions.length) {
-      const captionMatch = html.match(/"captionTracks"\s*:\s*(\[[\s\S]*?\])\s*,\s*"audioTracks"/);
-      if (captionMatch) {
-        try { captions = JSON.parse(captionMatch[1]); } catch(e) {}
+        playerData = JSON.parse(html.slice(jsonStart, end));
+      } catch(e) {
+        playerData = null;
       }
     }
 
-    // Method 3: broader fallback
-    if (!captions.length) {
-      const broadMatch = html.match(/"captionTracks"\s*:\s*(\[[\s\S]*?\])/);
-      if (broadMatch) {
-        try { captions = JSON.parse(broadMatch[1]); } catch(e) {}
-      }
+    if (!playerData) {
+      return res.status(500).json({ error: 'Could not parse YouTube page data. Please try again.' });
     }
 
-    if (!captions.length) {
-      return res.status(404).json({
-        error: 'No captions found for this video. The video may not have subtitles enabled.'
-      });
+    // Get caption tracks
+    const captionTracks = playerData?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
+
+    if (!captionTracks || !captionTracks.length) {
+      return res.status(404).json({ error: 'No captions found for this video. The creator may not have captions enabled.' });
     }
 
-    // Prefer English, then English auto-generated, then first available
+    // Pick best track: manual English > auto English > any English > first track
     const track =
-      captions.find(t => t.languageCode === 'en' && !t.kind) ||
-      captions.find(t => t.languageCode === 'en-US' && !t.kind) ||
-      captions.find(t => t.languageCode === 'en') ||
-      captions.find(t => t.languageCode === 'en-US') ||
-      captions[0];
+      captionTracks.find(t => (t.languageCode === 'en' || t.languageCode === 'en-US') && t.kind !== 'asr') ||
+      captionTracks.find(t => t.languageCode === 'en' || t.languageCode === 'en-US') ||
+      captionTracks.find(t => t.languageCode?.startsWith('en')) ||
+      captionTracks[0];
 
     if (!track?.baseUrl) {
-      return res.status(404).json({ error: 'Could not find caption track URL.' });
+      return res.status(404).json({ error: 'Caption track URL not found.' });
     }
 
-    // Fetch the caption XML
-    const captionRes = await fetch(track.baseUrl + '&fmt=json3');
+    // Fetch captions in JSON3 format (easiest to parse)
+    const captionUrl = track.baseUrl + '&fmt=json3';
+    const captionRes = await fetch(captionUrl);
     const captionText = await captionRes.text();
 
     let lines = [];
 
-    // Try JSON3 format first (newer YouTube format)
+    // Parse JSON3 format
     try {
       const captionJson = JSON.parse(captionText);
       const events = captionJson?.events || [];
-      events.forEach(event => {
-        if (!event.segs) return;
+
+      for (const event of events) {
+        if (!event.segs || !event.tStartMs) continue;
         const text = event.segs
           .map(s => s.utf8 || '')
           .join('')
           .replace(/\n/g, ' ')
           .trim();
-        if (text && text !== '\n') {
+        if (text && text !== '\n' && text !== ' ') {
           lines.push({
-            start: (event.tStartMs || 0) / 1000,
-            text: text
+            start: event.tStartMs / 1000,
+            text
           });
         }
-      });
+      }
     } catch(e) {
-      // JSON3 parse failed, try XML format
+      // JSON3 failed — try XML
       lines = [];
     }
 
-    // If JSON3 failed or returned nothing, fetch as XML
+    // Fallback: parse as XML
     if (!lines.length) {
       const xmlRes = await fetch(track.baseUrl);
-      const xmlText = await xmlRes.text();
+      const xml = await xmlRes.text();
 
-      // Parse XML manually — handle both formats YouTube uses
-      // Format 1: <text start="1.234" dur="2.345">content</text>
-      // Format 2: <text start="1.234" dur="2.345" xml:space="preserve">content</text>
-      const xmlRegex = /<text[^>]+start="([^"]+)"[^>]*>([\s\S]*?)<\/text>/g;
-      let m;
-      while ((m = xmlRegex.exec(xmlText)) !== null) {
-        const start = parseFloat(m[1]);
-        const raw = m[2];
+      const parts = xml.split('<text ');
+      for (let i = 1; i < parts.length; i++) {
+        const part = parts[i];
+        const startMatch = part.match(/start="([^"]+)"/);
+        const closeTag = part.indexOf('>');
+        const endTag = part.indexOf('</text>');
+        if (!startMatch || closeTag === -1 || endTag === -1) continue;
+
+        const start = parseFloat(startMatch[1]);
+        const raw = part.slice(closeTag + 1, endTag);
         const text = raw
-          .replace(/<[^>]+>/g, '')   // strip inner tags
+          .replace(/<[^>]+>/g, '')
           .replace(/&amp;/g, '&')
           .replace(/&lt;/g, '<')
           .replace(/&gt;/g, '>')
           .replace(/&#39;/g, "'")
           .replace(/&quot;/g, '"')
           .replace(/&nbsp;/g, ' ')
-          .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code)))
+          .replace(/&#(\d+);/g, (_, c) => String.fromCharCode(parseInt(c)))
           .trim();
+
         if (text) lines.push({ start, text });
       }
     }
 
     if (!lines.length) {
-      return res.status(404).json({
-        error: 'Transcript is empty. This video may have auto-captions disabled or an unsupported caption format.'
-      });
+      return res.status(404).json({ error: 'Transcript is empty or could not be parsed for this video.' });
     }
 
     // Get video title
-    let title = 'YouTube Video';
-    try {
-      const oembedRes = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
-      const oembed = await oembedRes.json();
-      if (oembed.title) title = oembed.title;
-    } catch(e) {}
+    let title = playerData?.videoDetails?.title || 'YouTube Video';
 
     return res.status(200).json({
       title,
       transcript: lines,
       language: track.languageCode,
-      trackName: track.name?.simpleText || track.languageCode
+      trackName: track.name?.simpleText || track.languageCode,
+      count: lines.length
     });
 
   } catch (error) {
-    console.error('Transcript error:', error);
-    return res.status(500).json({
-      error: 'Failed to fetch transcript. Please try again in a moment.'
-    });
+    return res.status(500).json({ error: 'Server error: ' + error.message });
   }
 }
