@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Timestamp Link Generator – Share a Video at a Specific Time | ThumbRip</title>
+  <meta name="description" content="Create a YouTube link that starts at a specific time. Paste a URL, set the timestamp, and copy a shareable link or embed code. Free, instant, no signup." />
+  <meta name="keywords" content="youtube timestamp link, youtube start at time, youtube link specific time, share youtube at time, youtube timestamp generator free" />
+  <link rel="canonical" href="https://thumbrip.com/youtube-timestamp-link.html" />
+  <meta property="og:title" content="YouTube Timestamp Link Generator | ThumbRip" />
+  <meta property="og:description" content="Make a YouTube link that starts at any moment. Free and instant." />
+  <meta property="og:url" content="https://thumbrip.com/youtube-timestamp-link.html" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#111110;--white:#FFFFFF;--cream:#F7F5F0;--cream-2:#EDEAE3;--red:#E8341A;--red-dark:#C22A12;--red-soft:#FDF0ED;--gray-1:#3A3A38;--gray-2:#6B6B68;--gray-3:#9E9E9B;--gray-4:#C8C6C0;--gray-5:#E2DFD9;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--radius:4px;--radius-lg:14px}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--white);color:var(--black);-webkit-font-smoothing:antialiased}
+    nav{background:var(--white);border-bottom:1px solid var(--gray-5);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .logo{font-family:var(--font-display);font-size:24px;font-weight:900;color:var(--black);text-decoration:none;letter-spacing:-.5px}.logo span{color:var(--red)}
+    .nav-links{display:flex;gap:36px}
+    .nav-links a{font-size:12px;font-weight:400;color:var(--gray-2);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--black)}
+    .hero{background:var(--cream);border-bottom:1px solid var(--gray-5);padding:64px 48px 56px;text-align:center}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+    .hero-eyebrow::before{content:'';display:block;width:28px;height:1.5px;background:var(--red)}
+    h1{font-family:var(--font-display);font-size:clamp(34px,5vw,60px);font-weight:900;line-height:1.02;letter-spacing:-2px;color:var(--black);margin-bottom:16px}
+    h1 em{color:var(--red);font-style:italic}
+    .hero-sub{font-size:15px;font-weight:300;color:var(--gray-2);line-height:1.8;max-width:520px;margin:0 auto}
+    main{max-width:900px;margin:0 auto;padding:48px 48px 90px}
+    .calc-card{background:var(--cream);border:1px solid var(--gray-5);border-radius:var(--radius-lg);padding:32px}
+    .calc-card h2{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:22px;letter-spacing:-.3px}
+    .field{margin-bottom:18px}
+    .field label{display:block;font-size:13px;font-weight:500;color:var(--black);margin-bottom:7px}
+    .field label small{color:var(--gray-3);font-weight:400}
+    input[type=text],input[type=number]{width:100%;border:1.5px solid var(--gray-5);border-radius:var(--radius);padding:12px 14px;font-size:15px;font-family:var(--font-body);color:var(--black);background:var(--white);outline:none;transition:border-color .2s}
+    input:focus{border-color:var(--red)}
+    .time-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+    .calc-btn{background:var(--red);color:var(--white);border:none;width:100%;padding:15px;font-size:16px;font-weight:500;font-family:var(--font-body);border-radius:var(--radius);cursor:pointer;margin-top:6px;transition:background .2s}
+    .calc-btn:hover{background:var(--red-dark)}
+    .results{display:none;margin-top:24px}.results.show{display:block}
+    .out-block{background:var(--white);border:1px solid var(--gray-5);border-radius:var(--radius-lg);padding:20px;margin-bottom:12px}
+    .out-block .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-3);margin-bottom:8px}
+    .out-val{font-family:monospace;font-size:14px;color:var(--black);word-break:break-all;background:var(--cream);border:1px solid var(--gray-5);border-radius:var(--radius);padding:12px;margin-bottom:10px;line-height:1.6}
+    .copy-btn{background:var(--black);color:var(--white);border:none;padding:9px 18px;font-size:13px;font-weight:500;font-family:var(--font-body);border-radius:var(--radius);cursor:pointer}
+    .copy-btn:hover{background:#333}
+    .preview-wrap{background:var(--black);border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:16/9;margin-top:14px}
+    .preview-wrap iframe{width:100%;height:100%;border:none;display:block}
+    .error{background:var(--red-soft);border:1px solid #F5C4BB;color:var(--red-dark);padding:13px 16px;border-radius:var(--radius);font-size:14px;margin-top:16px;display:none}.error.show{display:block}
+    .content{margin-top:64px}
+    .content h2{font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.4px;margin:40px 0 14px}
+    .content h2:first-child{margin-top:0}
+    .content p{font-size:15px;font-weight:300;color:var(--gray-1);line-height:1.85;margin-bottom:14px}
+    .content p a{color:var(--red);text-decoration:none}.content p a:hover{text-decoration:underline}
+    .content strong{font-weight:500}
+    .faq-item{border-top:1px solid var(--gray-5);padding:18px 0}
+    .faq-item h3{font-family:var(--font-body);font-size:15px;font-weight:500;margin-bottom:8px}
+    .faq-item p{font-size:14px;font-weight:300;color:var(--gray-2);line-height:1.8;margin:0}
+    footer{background:var(--black);color:var(--gray-3);padding:48px;margin-top:20px}
+    .footer-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+    .footer-logo{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--white);text-decoration:none;display:block;margin-bottom:6px}.footer-logo span{color:var(--red)}
+    .footer-tagline{font-size:13px;font-weight:300;color:var(--gray-3)}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap}
+    .footer-links a{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-3);text-decoration:none}
+    .footer-links a:hover{color:var(--white)}
+    .footer-copy{max-width:900px;margin:28px auto 0;padding-top:22px;border-top:1px solid #222;font-size:12px;color:#444}
+    @media(max-width:600px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:48px 20px}main{padding:36px 20px 70px}footer{padding:40px 20px}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-links"><a href="/">Home</a><a href="/tools.html">Tools</a><a href="/about.html">About</a></div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">YouTube Timestamp Link Generator</div>
+  <h1>Share a video at the <em>exact</em> moment.</h1>
+  <p class="hero-sub">Paste a YouTube URL, set the time, and get a link that starts right where you want it. Perfect for pointing someone to one part of a long video.</p>
+</div>
+
+<main>
+  <div class="calc-card">
+    <h2>Build your timestamp link</h2>
+    <div class="field">
+      <label>YouTube video URL</label>
+      <input type="text" id="urlInput" placeholder="Paste any YouTube video link..." autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>Start time <small>— leave blank for 0</small></label>
+      <div class="time-row">
+        <input type="number" id="hh" placeholder="hh" min="0" />
+        <input type="number" id="mm" placeholder="mm" min="0" max="59" />
+        <input type="number" id="ss" placeholder="ss" min="0" max="59" />
+      </div>
+    </div>
+    <button class="calc-btn" onclick="generate()">Generate link</button>
+    <div class="error" id="errorMsg"></div>
+
+    <div class="results" id="results">
+      <div class="out-block">
+        <div class="lbl">Shareable link</div>
+        <div class="out-val" id="shareLink"></div>
+        <button class="copy-btn" onclick="copyVal('shareLink',this)">Copy link</button>
+      </div>
+      <div class="out-block">
+        <div class="lbl">Short link</div>
+        <div class="out-val" id="shortLink"></div>
+        <button class="copy-btn" onclick="copyVal('shortLink',this)">Copy short link</button>
+      </div>
+      <div class="out-block">
+        <div class="lbl">Embed code (starts at time)</div>
+        <div class="out-val" id="embedCode"></div>
+        <button class="copy-btn" onclick="copyVal('embedCode',this)">Copy embed code</button>
+      </div>
+      <div class="preview-wrap"><iframe id="previewFrame" allowfullscreen></iframe></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>What is the Timestamp Link Generator?</h2>
+    <p>The ThumbRip YouTube Timestamp Link Generator creates a link that opens a video at a precise moment instead of the beginning. You paste a YouTube URL, enter the hours, minutes, and seconds where you want playback to start, and the tool instantly gives you a shareable link, a short link, and ready-to-paste embed code that all begin at that exact time. A live preview lets you confirm the start point before you share. It runs entirely in your browser, requires no sign-up, and stores nothing you enter.</p>
+    <p>This solves a small but constant frustration: when you want to send someone the one part of a video that matters — a specific answer, a highlight, a key explanation — without making them scrub through twenty minutes to find it. A timestamp link drops them straight into the right moment.</p>
+
+    <h2>How to make a YouTube link start at a specific time</h2>
+    <p>First, copy the URL of the YouTube video you want to share and paste it into the box above. Second, enter the start time in the hours, minutes, and seconds fields — you can fill in just minutes and seconds for shorter videos, or all three for long ones. Third, press <strong>Generate link</strong>. The tool produces three outputs: a full shareable link, a compact youtu.be short link, and an iframe embed code, each set to begin at your chosen time. Click any Copy button to grab the one you need, and use the preview player to double-check the start point.</p>
+
+    <h2>When timestamp links are useful</h2>
+    <p>Teachers and students share the exact minute of a lecture that covers a particular topic, so classmates don't have to rewatch the whole thing. Support teams and tutorial creators point users to the precise step in a how-to video. Podcasters and interviewers highlight a memorable quote by linking straight to it. Reviewers send friends to the moment a product is shown. Anyone discussing a video in a group chat can settle a point instantly by linking to the second where it happens. Because the link is just a normal YouTube URL with a time added, it works everywhere YouTube links work — messages, emails, social posts, and documents.</p>
+
+    <h2>How timestamp links actually work</h2>
+    <p>A YouTube timestamp link is simply a normal video URL with a small piece added to the end that tells YouTube where to begin. For standard links this is a <strong>&t=</strong> value measured in seconds; for short youtu.be links it is <strong>?t=</strong>. So a link ending in <strong>t=90</strong> starts the video at ninety seconds, or one minute thirty. This tool does the conversion for you — you enter a readable time in hours, minutes, and seconds, and it calculates the correct number of seconds and builds the link in every format. You never have to do the math or remember the syntax.</p>
+
+    <h2>Embedding a video that starts at a set time</h2>
+    <p>The embed code output is useful if you run a website or blog and want a video to begin partway through when readers press play. Paste the generated iframe into your page's HTML wherever you want the player to appear, and it will start at your chosen timestamp automatically. This is handy for tutorials where the relevant section is several minutes in, or for highlighting a specific clip without uploading a separate copy. For more embed options like size and autoplay, try ThumbRip's full <a href="/youtube-embed-code.html">Embed Code Generator</a>.</p>
+
+    <h2>More free YouTube tools</h2>
+    <p>Explore the rest of ThumbRip: the <a href="/youtube-embed-code.html">Embed Code Generator</a> for full embed control, the <a href="/youtube-video-stats.html">Video Info</a> tool to check a video's details, and the <a href="/index.html">Thumbnail Downloader</a> to grab any video's thumbnail. All free, no account needed.</p>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><h3>Is the timestamp link generator free?</h3><p>Yes, completely free with no sign-up and no limit on how many links you can create.</p></div>
+    <div class="faq-item"><h3>Does it work with youtu.be and Shorts links?</h3><p>Yes. You can paste standard watch URLs, youtu.be short links, or Shorts URLs, and the tool will build a correct timestamp link for each.</p></div>
+    <div class="faq-item"><h3>Will the link work on mobile and in apps?</h3><p>Yes. The generated link is a standard YouTube URL with a start time, so it opens correctly in the YouTube app and mobile browsers.</p></div>
+    <div class="faq-item"><h3>Can I make a video start at a time when embedded?</h3><p>Yes. The embed code output includes your start time, so the player begins at that moment when a viewer presses play on your site.</p></div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-logo" href="/">Thumb<span>Rip</span></a>
+      <div class="footer-tagline">Free YouTube tools for creators</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a><a href="/tools.html">Tools</a><a href="/about.html">About</a><a href="/privacy-policy.html">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 ThumbRip &nbsp;·&nbsp; Not affiliated with YouTube or Google</div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is the timestamp link generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free with no sign-up and no limit on how many links you can create."}},
+{"@type":"Question","name":"Does it work with youtu.be and Shorts links?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can paste standard watch URLs, youtu.be short links, or Shorts URLs, and the tool will build a correct timestamp link for each."}},
+{"@type":"Question","name":"Will the link work on mobile and in apps?","acceptedAnswer":{"@type":"Answer","text":"Yes. The generated link is a standard YouTube URL with a start time, so it opens correctly in the YouTube app and mobile browsers."}},
+{"@type":"Question","name":"Can I make a video start at a time when embedded?","acceptedAnswer":{"@type":"Answer","text":"Yes. The embed code output includes your start time, so the player begins at that moment when a viewer presses play on your site."}}
+]}
+</script>
+
+<script>
+function extractVideoId(url){
+  const m=url.match(/(?:v=|\/embed\/|\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m?m[1]:(url.trim().match(/^([a-zA-Z0-9_-]{11})$/)||[])[1]||null;
+}
+function generate(){
+  const url=document.getElementById('urlInput').value.trim();
+  const err=document.getElementById('errorMsg');
+  err.classList.remove('show');
+  const id=extractVideoId(url);
+  if(!id){err.textContent='Please paste a valid YouTube video URL.';err.classList.add('show');return;}
+  const hh=parseInt(document.getElementById('hh').value)||0;
+  const mm=parseInt(document.getElementById('mm').value)||0;
+  const ss=parseInt(document.getElementById('ss').value)||0;
+  const total=hh*3600+mm*60+ss;
+  const share=`https://www.youtube.com/watch?v=${id}${total>0?'&t='+total:''}`;
+  const short=`https://youtu.be/${id}${total>0?'?t='+total:''}`;
+  const embedSrc=`https://www.youtube.com/embed/${id}${total>0?'?start='+total:''}`;
+  const embed=`<iframe width="560" height="315" src="${embedSrc}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+  document.getElementById('shareLink').textContent=share;
+  document.getElementById('shortLink').textContent=short;
+  document.getElementById('embedCode').textContent=embed;
+  document.getElementById('previewFrame').src=embedSrc;
+  const r=document.getElementById('results');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function copyVal(id,btn){
+  const t=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='✓ Copied!';setTimeout(()=>btn.textContent=o,1800);});
+}
+document.getElementById('urlInput').addEventListener('keydown',e=>{if(e.key==='Enter')generate()});
+</script>
+</body>
+</html>

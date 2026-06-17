@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Thumbnail Size Guide 2026 – Correct Dimensions & Specs | ThumbRip</title>
+  <meta name="description" content="The correct YouTube thumbnail size, dimensions, aspect ratio and file limits for 2026. Plus banner and profile picture sizes. Free guide with a size checker." />
+  <meta name="keywords" content="youtube thumbnail size, youtube thumbnail dimensions, youtube banner size, youtube thumbnail aspect ratio, youtube channel art size 2026" />
+  <link rel="canonical" href="https://thumbrip.com/youtube-thumbnail-size.html" />
+  <meta property="og:title" content="YouTube Thumbnail Size Guide 2026 | ThumbRip" />
+  <meta property="og:description" content="Correct YouTube thumbnail, banner and profile sizes with a free image size checker." />
+  <meta property="og:url" content="https://thumbrip.com/youtube-thumbnail-size.html" />
+  <meta name="robots" content="index, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--black:#111110;--white:#FFFFFF;--cream:#F7F5F0;--cream-2:#EDEAE3;--red:#E8341A;--red-dark:#C22A12;--red-soft:#FDF0ED;--gray-1:#3A3A38;--gray-2:#6B6B68;--gray-3:#9E9E9B;--gray-4:#C8C6C0;--gray-5:#E2DFD9;--green:#2E7D32;--green-soft:#EAF4EA;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--radius:4px;--radius-lg:14px}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--white);color:var(--black);-webkit-font-smoothing:antialiased}
+    nav{background:var(--white);border-bottom:1px solid var(--gray-5);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .logo{font-family:var(--font-display);font-size:24px;font-weight:900;color:var(--black);text-decoration:none;letter-spacing:-.5px}.logo span{color:var(--red)}
+    .nav-links{display:flex;gap:36px}
+    .nav-links a{font-size:12px;font-weight:400;color:var(--gray-2);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--black)}
+    .hero{background:var(--cream);border-bottom:1px solid var(--gray-5);padding:64px 48px 56px;text-align:center}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+    .hero-eyebrow::before{content:'';display:block;width:28px;height:1.5px;background:var(--red)}
+    h1{font-family:var(--font-display);font-size:clamp(32px,5vw,56px);font-weight:900;line-height:1.04;letter-spacing:-1.8px;color:var(--black);margin-bottom:16px}
+    h1 em{color:var(--red);font-style:italic}
+    .hero-sub{font-size:15px;font-weight:300;color:var(--gray-2);line-height:1.8;max-width:540px;margin:0 auto}
+    main{max-width:900px;margin:0 auto;padding:48px 48px 90px}
+    /* spec card */
+    .spec-card{background:var(--black);border-radius:var(--radius-lg);padding:34px;color:var(--white);margin-bottom:32px}
+    .spec-card .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-3);margin-bottom:10px}
+    .spec-card .dim{font-family:var(--font-display);font-size:clamp(36px,7vw,56px);font-weight:900;line-height:1;margin-bottom:6px}
+    .spec-card .dim span{color:var(--red)}
+    .spec-card .meta{font-size:14px;color:var(--gray-3);font-weight:300}
+    /* table */
+    .spec-table{width:100%;border-collapse:collapse;margin:8px 0 24px;background:var(--cream);border:1px solid var(--gray-5);border-radius:var(--radius-lg);overflow:hidden}
+    .spec-table th{background:var(--cream-2);text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-2);font-weight:500;padding:14px 16px}
+    .spec-table td{padding:14px 16px;font-size:14px;border-top:1px solid var(--gray-5);color:var(--gray-1)}
+    .spec-table td:first-child{font-weight:500;color:var(--black)}
+    /* checker */
+    .checker{background:var(--cream);border:1px solid var(--gray-5);border-radius:var(--radius-lg);padding:30px;margin-bottom:8px}
+    .checker h2{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+    .checker p.note{font-size:13px;color:var(--gray-2);font-weight:300;margin-bottom:18px}
+    .file-btn{background:var(--white);border:1.5px solid var(--gray-4);border-radius:var(--radius);padding:12px 20px;font-size:14px;font-weight:500;font-family:var(--font-body);cursor:pointer}
+    .file-btn:hover{border-color:var(--black)}
+    .check-result{display:none;margin-top:20px}.check-result.show{display:block}
+    .verdict{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:8px 16px;border-radius:20px;margin-bottom:14px}
+    .verdict.good{background:var(--green-soft);color:var(--green)}
+    .verdict.bad{background:var(--red-soft);color:var(--red-dark)}
+    .check-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+    .cbox{background:var(--white);border:1px solid var(--gray-5);border-radius:var(--radius);padding:14px;text-align:center}
+    .cbox .v{font-family:var(--font-display);font-size:18px;font-weight:700}
+    .cbox .l{font-size:12px;color:var(--gray-2);margin-top:3px}
+    .content{margin-top:64px}
+    .content h2{font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.4px;margin:40px 0 14px}
+    .content h2:first-child{margin-top:0}
+    .content p{font-size:15px;font-weight:300;color:var(--gray-1);line-height:1.85;margin-bottom:14px}
+    .content p a{color:var(--red);text-decoration:none}.content p a:hover{text-decoration:underline}
+    .content strong{font-weight:500}
+    .content ul{margin:0 0 14px 20px}
+    .content li{font-size:15px;font-weight:300;color:var(--gray-1);line-height:1.8;margin-bottom:6px}
+    .faq-item{border-top:1px solid var(--gray-5);padding:18px 0}
+    .faq-item h3{font-family:var(--font-body);font-size:15px;font-weight:500;margin-bottom:8px}
+    .faq-item p{font-size:14px;font-weight:300;color:var(--gray-2);line-height:1.8;margin:0}
+    footer{background:var(--black);color:var(--gray-3);padding:48px;margin-top:20px}
+    .footer-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+    .footer-logo{font-family:var(--font-display);font-size:26px;font-weight:900;color:var(--white);text-decoration:none;display:block;margin-bottom:6px}.footer-logo span{color:var(--red)}
+    .footer-tagline{font-size:13px;font-weight:300;color:var(--gray-3)}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap}
+    .footer-links a{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-3);text-decoration:none}
+    .footer-links a:hover{color:var(--white)}
+    .footer-copy{max-width:900px;margin:28px auto 0;padding-top:22px;border-top:1px solid #222;font-size:12px;color:#444}
+    @media(max-width:600px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:48px 20px}main{padding:36px 20px 70px}footer{padding:40px 20px}.spec-table{font-size:13px}}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">Thumb<span>Rip</span></a>
+  <div class="nav-links"><a href="/">Home</a><a href="/tools.html">Tools</a><a href="/about.html">About</a></div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">YouTube Thumbnail Size Guide · 2026</div>
+  <h1>The right size, <em>every time.</em></h1>
+  <p class="hero-sub">The correct YouTube thumbnail dimensions, aspect ratio and file limits — plus banner and profile sizes. Check your own image against the specs in one click.</p>
+</div>
+
+<main>
+  <div class="spec-card">
+    <div class="lbl">Recommended YouTube thumbnail size</div>
+    <div class="dim">1280 <span>×</span> 720</div>
+    <div class="meta">16:9 aspect ratio · minimum width 640px · under 2MB · JPG, PNG, GIF or BMP</div>
+  </div>
+
+  <table class="spec-table">
+    <tr><th>Asset</th><th>Size (px)</th><th>Aspect ratio</th></tr>
+    <tr><td>Video thumbnail</td><td>1280 × 720</td><td>16:9</td></tr>
+    <tr><td>Channel banner (safe area)</td><td>1546 × 423</td><td>—</td></tr>
+    <tr><td>Channel banner (full upload)</td><td>2560 × 1440</td><td>16:9</td></tr>
+    <tr><td>Profile picture</td><td>800 × 800</td><td>1:1 (shown as circle)</td></tr>
+    <tr><td>Shorts thumbnail / cover</td><td>1080 × 1920</td><td>9:16</td></tr>
+    <tr><td>End screen element</td><td>16:9 region</td><td>16:9</td></tr>
+  </table>
+
+  <div class="checker">
+    <h2>Check your image size</h2>
+    <p class="note">Pick an image from your device and we'll instantly check it against YouTube's thumbnail specs. The image never leaves your browser — nothing is uploaded.</p>
+    <button class="file-btn" onclick="document.getElementById('imgInput').click()">Choose image to check</button>
+    <input type="file" id="imgInput" accept="image/*" hidden />
+    <div class="check-result" id="checkResult">
+      <div class="verdict" id="verdict"></div>
+      <div class="check-grid">
+        <div class="cbox"><div class="v" id="cDim">—</div><div class="l">Dimensions</div></div>
+        <div class="cbox"><div class="v" id="cRatio">—</div><div class="l">Aspect ratio</div></div>
+        <div class="cbox"><div class="v" id="cSize">—</div><div class="l">File size</div></div>
+        <div class="cbox"><div class="v" id="cType">—</div><div class="l">Format</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>What is the correct YouTube thumbnail size?</h2>
+    <p>The recommended YouTube thumbnail size is <strong>1280 by 720 pixels</strong>, with a <strong>16:9 aspect ratio</strong>. This is the size YouTube displays at the largest resolution across desktop, mobile, and TV, so designing at these dimensions ensures your thumbnail looks sharp everywhere. The minimum acceptable width is 640 pixels, but anything smaller than 1280 by 720 risks looking blurry on large screens. The file must be under <strong>2MB</strong> and saved as a JPG, PNG, GIF, or BMP. Stick to 1280 by 720 and you will never have a thumbnail rejected or downscaled.</p>
+    <p>Aspect ratio matters as much as resolution. YouTube expects 16:9, the same shape as the video player. If you upload a thumbnail with a different ratio, YouTube adds black bars or crops the image, which looks unprofessional and can cut off important text or faces. Always design within a 16:9 frame from the start.</p>
+
+    <h2>How to check your thumbnail before uploading</h2>
+    <p>Use the checker above to verify any image instantly. Click <strong>Choose image to check</strong>, select your thumbnail, and the tool reads the file's width, height, aspect ratio, format, and size directly in your browser — nothing is uploaded to any server. It then tells you whether the image meets YouTube's requirements and flags anything that's off, such as a width below 1280, a wrong aspect ratio, or a file over 2MB. This is the fastest way to catch a problem before you publish, rather than discovering a blurry thumbnail after the video is live.</p>
+
+    <h2>Why thumbnail size affects your views</h2>
+    <p>Your thumbnail is the single biggest factor in whether someone clicks your video, and size is the foundation of a good one. A correctly sized 1280 by 720 image stays crisp when YouTube shrinks it to a tiny mobile preview or blows it up on a television. An undersized or wrong-ratio thumbnail looks soft, gets cropped awkwardly, and signals low effort — all of which lower your click-through rate. Since click-through rate feeds directly into how often YouTube recommends your video, a technically correct thumbnail isn't just about looking neat; it protects your reach.</p>
+
+    <h2>Designing within the safe area</h2>
+    <p>Even at the right size, where you place elements matters. Thumbnails are often displayed small, so keep your most important text and faces near the center and large enough to read at a glance. YouTube overlays the video's duration in the bottom-right corner, so avoid putting critical details there. Test your design by shrinking it to roughly the size of a mobile search result — if the text is still legible and the focal point is clear, it will work across every device. High contrast between your subject and the background helps the thumbnail stand out in a crowded feed.</p>
+
+    <h2>Banner and profile picture sizes</h2>
+    <p>Your channel needs more than thumbnails. The <strong>channel banner</strong> should be uploaded at 2560 by 1440 pixels, but only the central <strong>1546 by 423</strong> "safe area" is guaranteed to show on every device, so keep your logo and text inside that zone. The <strong>profile picture</strong> should be 800 by 800 pixels; YouTube displays it as a circle, so center your design and leave margins so nothing important is clipped. For <strong>Shorts</strong>, design vertically at 1080 by 1920 pixels to match the 9:16 full-screen format. Getting these right gives your channel a polished, consistent look.</p>
+
+    <h2>Quick checklist for a perfect thumbnail</h2>
+    <ul>
+      <li>Size: 1280 × 720 pixels (16:9 aspect ratio)</li>
+      <li>Minimum width: 640 pixels — but always aim for 1280</li>
+      <li>File size: under 2MB</li>
+      <li>Format: JPG, PNG, GIF, or BMP</li>
+      <li>Keep key text and faces centered and large</li>
+      <li>Avoid the bottom-right corner (duration overlay)</li>
+      <li>Use high contrast so it stands out when small</li>
+    </ul>
+
+    <h2>More free YouTube tools</h2>
+    <p>Need to grab a thumbnail to study or use as a reference? Try the <a href="/index.html">YouTube Thumbnail Downloader</a> to download any video's thumbnail in every size. You can also check a video's details with the <a href="/youtube-video-stats.html">Video Info</a> tool or research a creator with <a href="/youtube-channel-stats.html">Channel Stats</a>. All free, no account needed.</p>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><h3>What size should a YouTube thumbnail be?</h3><p>1280 by 720 pixels with a 16:9 aspect ratio is recommended. The minimum width is 640 pixels and the file must be under 2MB.</p></div>
+    <div class="faq-item"><h3>What is the maximum thumbnail file size?</h3><p>YouTube allows custom thumbnails up to 2MB. If your file is larger, compress or resize it before uploading.</p></div>
+    <div class="faq-item"><h3>What aspect ratio do YouTube thumbnails use?</h3><p>16:9, the same shape as the video player. Other ratios get cropped or have bars added, so always design in 16:9.</p></div>
+    <div class="faq-item"><h3>What file formats are accepted?</h3><p>JPG, PNG, GIF, and BMP are all accepted. JPG and PNG are the most common choices for thumbnails.</p></div>
+    <div class="faq-item"><h3>What size is a YouTube banner?</h3><p>Upload at 2560 by 1440 pixels, but keep important content inside the central 1546 by 423 pixel safe area so it shows on all devices.</p></div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-logo" href="/">Thumb<span>Rip</span></a>
+      <div class="footer-tagline">Free YouTube tools for creators</div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a><a href="/tools.html">Tools</a><a href="/about.html">About</a><a href="/privacy-policy.html">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 ThumbRip &nbsp;·&nbsp; Not affiliated with YouTube or Google</div>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What size should a YouTube thumbnail be?","acceptedAnswer":{"@type":"Answer","text":"1280 by 720 pixels with a 16:9 aspect ratio is recommended. The minimum width is 640 pixels and the file must be under 2MB."}},
+{"@type":"Question","name":"What is the maximum thumbnail file size?","acceptedAnswer":{"@type":"Answer","text":"YouTube allows custom thumbnails up to 2MB. If your file is larger, compress or resize it before uploading."}},
+{"@type":"Question","name":"What aspect ratio do YouTube thumbnails use?","acceptedAnswer":{"@type":"Answer","text":"16:9, the same shape as the video player. Other ratios get cropped or have bars added, so always design in 16:9."}},
+{"@type":"Question","name":"What file formats are accepted?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, GIF, and BMP are all accepted. JPG and PNG are the most common choices for thumbnails."}},
+{"@type":"Question","name":"What size is a YouTube banner?","acceptedAnswer":{"@type":"Answer","text":"Upload at 2560 by 1440 pixels, but keep important content inside the central 1546 by 423 pixel safe area so it shows on all devices."}}
+]}
+</script>
+
+<script>
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+document.getElementById('imgInput').addEventListener('change',function(e){
+  const file=e.target.files[0];if(!file)return;
+  const img=new Image();
+  const url=URL.createObjectURL(file);
+  img.onload=function(){
+    const w=img.naturalWidth,h=img.naturalHeight;
+    const g=gcd(w,h);
+    const ratio=(w/g)+':'+(h/g);
+    const sizeMB=file.size/1048576;
+    const fmt=(file.type.split('/')[1]||'unknown').toUpperCase();
+    document.getElementById('cDim').textContent=w+'×'+h;
+    document.getElementById('cRatio').textContent=ratio;
+    document.getElementById('cSize').textContent=sizeMB.toFixed(2)+' MB';
+    document.getElementById('cType').textContent=fmt;
+    const is169=Math.abs((w/h)-(16/9))<0.02;
+    const okWidth=w>=1280;
+    const okSize=sizeMB<=2;
+    const good=is169&&okWidth&&okSize;
+    const v=document.getElementById('verdict');
+    if(good){v.className='verdict good';v.textContent='✓ Meets YouTube thumbnail requirements';}
+    else{
+      let issues=[];
+      if(!is169)issues.push('not 16:9');
+      if(!okWidth)issues.push('width under 1280px');
+      if(!okSize)issues.push('over 2MB');
+      v.className='verdict bad';v.textContent='✕ Needs fixing: '+issues.join(', ');
+    }
+    document.getElementById('checkResult').classList.add('show');
+    URL.revokeObjectURL(url);
+  };
+  img.src=url;
+});
+</script>
+</body>
+</html>
